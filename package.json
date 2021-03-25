@@ -1,0 +1,31 @@
+{
+  "name": "as-container",
+  "version": "0.1.0",
+  "description": "assemblyscript version of Rust Option<T> and Result<T, E> etc.",
+  "author": "yjhmelody <yjh465402634@gmail.com>",
+  "license": "MIT",
+  "main": "index.ts",
+  "keywords": ["assemblyscript", "util", "container", "option", "result", "box"],
+  "scripts": {
+    "lint": "eslint .",
+    "checks": "asc ./assembly --noEmit --measure",
+    "test": "asp --verbose",
+    "test:summary": "asp --summary"
+  },
+  "devDependencies": {
+    "@as-pect/assembly": "6.0.0",
+    "assemblyscript": "0.18",
+    "@as-pect/cli": "6.0.0",
+    "@as-pect/core": "6.0.0",
+    "eslint": "7.22.0",
+    "@typescript-eslint/eslint-plugin": "4.18",
+    "@typescript-eslint/parser": "4.18",
+    "typescript": "4.2"
+  },
+  "releaseFiles": [
+    "index.ts",
+    "assembly/",
+    "README.md",
+    "package.json"
+  ]
+}
