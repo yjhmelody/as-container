@@ -124,7 +124,10 @@ export interface Optionable<T> {
     eq(other: Optionable<T>): bool;
 }
 
-export class Option<T> {
+/**
+ * Option impls Optionable.
+ */
+export class Option<T> implements Optionable<T> {
     private constructor(private readonly val: T | null) {}
 
     @inline
