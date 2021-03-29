@@ -121,6 +121,9 @@ export interface Resultable<O, E> {
     eq(other: Resultable<O, E>): bool;
 }
 
+/**
+ * Result impls Resultable.
+ */
 export class Result<O, E> implements Resultable<O, E> {
     private constructor(
         // _ok is null when _err is not null.
