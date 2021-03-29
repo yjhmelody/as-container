@@ -1,6 +1,6 @@
 # as-container
 
-![Tests](https://github.com/yjhmelody/as-container/workflows/Tests/badge.svg)
+![CI](https://github.com/yjhmelody/as-container/workflows/CI/badge.svg)
 [![npm version](https://img.shields.io/npm/v/as-container?color=light-green&label=npm%20package)](https://img.shields.io/npm/v/as-container?color=light-green&label=npm%20package)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/yjhmelody/as-container)
 
