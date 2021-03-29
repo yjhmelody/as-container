@@ -39,11 +39,16 @@ export interface Resultable<O, E> {
     map<U>(op: MapFn<O, U>): Result<U, E>;
 
     /**
+     *  Applies a function to the contained value (if Ok), or returns the provided default (if Err).
+     */
+    mapOr<U>(def: U, fn: MapFn<O, U>): U;
+
+    /**
      *  Maps a `Result<T, E>` to `U` by applying a function to a contained `Ok` value,
      *  or a `fallback` function to a contained `Err` value.
      *  This function can be used to unpack a successful result while handling an error.
      */
-    mapOrElse<U>(fallback: RecoveryWithErrorFn<E, U>, selector: MapFn<O, U>): U;
+    mapOrElse<U>(defFn: RecoveryWithErrorFn<E, U>, fn: MapFn<O, U>): U;
 
     /**
      *  Maps a `Result<T, E>` to `Result<T, F>` by applying a function `mapFn<E, F>`
@@ -107,6 +112,13 @@ export interface Resultable<O, E> {
      * Panics if the value is a Ok, with a panic message including the passed message, and the content of the Err.
      */
     expectErr(message: string): E;
+
+    /**
+     * return true if results are both Ok or Err and the value is equal by `==`.
+     * @param other Option
+     * @returns
+     */
+    eq(other: Resultable<O, E>): bool;
 }
 
 export class Result<O, E> implements Resultable<O, E> {
@@ -116,6 +128,7 @@ export class Result<O, E> implements Resultable<O, E> {
         // _err is null when _ok is not null.
         private readonly _err: E | null
     ) {}
+
     static Ok<O, E>(ok: O): Result<O, E> {
         return new Result<O, E>(ok, null);
     }
@@ -136,68 +149,77 @@ export class Result<O, E> implements Resultable<O, E> {
 
     ok(): Option<O> {
         if (this._ok != null) {
-            return Option.Some(this._ok);
+            return Option.Some(this._ok as O);
         }
-        return Option.None();
+        return Option.None<O>();
     }
 
     err(): Option<E> {
         if (this._err != null) {
-            return Option.Some(this._err);
+            return Option.Some(this._err as E);
         }
-        return Option.None();
+        return Option.None<E>();
     }
 
     map<U>(op: MapFn<O, U>): Result<U, E> {
         if (this._ok != null) {
-            return Result.Ok(op(this._ok));
+            return Result.Ok<U, E>(op(this._ok as O));
         }
-        return Result.Err(this._err as E);
+        return Result.Err<U, E>(this._err as E);
     }
 
-    mapOrElse<U>(
-        fallback: RecoveryWithErrorFn<E, U>,
-        selector: MapFn<O, U>
-    ): U {
+    mapOr<U>(def: U, fn: MapFn<O, U>): U {
         if (this._ok != null) {
-            return selector(this._ok);
+            return fn(this._ok as O);
         }
-        return fallback(this._err as E);
+        return def;
+    }
+
+    mapOrElse<U>(defFn: RecoveryWithErrorFn<E, U>, fn: MapFn<O, U>): U {
+        if (this._ok != null) {
+            return fn(this._ok as O);
+        }
+        return defFn(this._err as E);
     }
 
     mapErr<F>(op: MapFn<E, F>): Result<O, F> {
         if (this._err != null) {
-            return Result.Err(op(this._err));
+            return Result.Err<O, F>(op(this._err as E));
         }
-        return Result.Ok(this._ok as O);
+        return Result.Ok<O, F>(this._ok as O);
     }
 
     and<U>(res: Result<U, E>): Result<U, E> {
         if (this._ok != null) {
             return res;
         }
-        return Result.Err(this._err as E);
+        return Result.Err<U, E>(this._err as E);
     }
 
     andThen<U>(op: FlatMapOkFn<O, U, E>): Result<U, E> {
         if (this._ok != null) {
-            return op(this._ok);
+            return op(this._ok as O);
         }
-        return Result.Err(this._err as E);
+        return Result.Err<U, E>(this._err as E);
+    }
+
+    @inline
+    flatMap<U>(op: FlatMapOkFn<O, U, E>): Result<U, E> {
+        return this.andThen<U>(op);
     }
 
     or<F>(res: Result<O, F>): Result<O, F> {
         if (this._err != null) {
             return res;
         }
-        return Result.Ok(this._ok as O);
+        return Result.Ok<O, F>(this._ok as O);
     }
 
     orElse<F>(op: FlatMapErrFn<O, E, F>): Result<O, F> {
         if (this._err != null) {
-            return op(this._err);
+            return op(this._err as E);
         }
-        return Result.Ok(this._ok as O);
+        return Result.Ok<O, F>(this._ok as O);
     }
 
     @inline
@@ -213,14 +235,14 @@ export class Result<O, E> implements Resultable<O, E> {
     @inline
     unwrapOr(optb: O): O {
         if (this._ok != null) {
-            return this._ok;
+            return this._ok as O;
         }
         return optb;
     }
 
     unwrapOrElse(op: RecoveryWithErrorFn<E, O>): O {
         if (this._ok != null) {
-            return this._ok;
+            return this._ok as O;
         }
         return op(this._err as E);
     }
@@ -235,5 +257,10 @@ export class Result<O, E> implements Resultable<O, E> {
     expectErr(message: string): E {
         assert(this._err != null, message);
         return this._err as E;
+    }
+
+    @inline
+    eq(other: Result<O, E>): bool {
+        return this._ok == other._ok && this._err == other._err;
     }
 }
