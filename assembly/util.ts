@@ -1,4 +1,4 @@
-import { Box, Boxable } from "./box";
+import { Box } from "./box";
 import { Option } from "./option";
 
 export function boxOption<T>(val: T | null): Box<Option<T>> {
