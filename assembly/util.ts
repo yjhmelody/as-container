@@ -8,11 +8,11 @@ export function boxOption<T>(val: T | null): Box<Option<T>> {
     return new Box(Option.Some(val as T));
 }
 
-export function optionCloned<T, B extends Boxable<T> = Box<T>>(
-    opt: Option<B>
+export function optionCloned<T>(
+    opt: Option<Box<T>>
 ): Option<T> {
     if (opt.isSome) {
-        return Option.Some(opt.unwrap().unwrap());
+        return Option.Some<T>((opt.unwrap()).unwrap());
     }
     return Option.None<T>();
 }

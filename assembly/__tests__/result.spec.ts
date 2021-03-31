@@ -149,16 +149,6 @@ describe("Result", () => {
         ).toStrictEqual(Result.Ok<string, string>("err2"));
     });
 
-    it("eq", () => {
-        const x = Result.Ok<string, string>("ok");
-        const x2 = Result.Ok<string, string>("ok");
-        const x3 = Result.Err<string, string>("err");
-        const x4 = Result.Err<string, string>("err");
-        expect(x.eq(x2)).toBe(true);
-        expect(x.eq(x3)).toBe(false);
-        expect(x3.eq(x4)).toBe(true);
-    });
-
     it("ok, err", () => {
         const x = Result.Ok<string, string>("ok");
         expect(x.ok()).toStrictEqual(Option.Some("ok"));
@@ -167,5 +157,35 @@ describe("Result", () => {
         const x2 = Result.Err<string, string>("ok");
         expect(x2.err()).toStrictEqual(Option.Some("ok"));
         expect(x2.ok()).toStrictEqual(Option.None<string>());
+    });
+
+    it("eq", () => {
+        const x = Result.Ok<string, string>("ok");
+        const x2 = Result.Ok<string, string>("ok");
+        const x3 = Result.Err<string, string>("err");
+        const x4 = Result.Err<string, string>("err");
+        
+        expect(x.eq(x2)).toBe(true);
+        expect(x.eq(x3)).toBe(false);
+        expect(x3.eq(x4)).toBe(true);
+
+        expect(x == x2).toBe(true);
+        expect(x == x3).toBe(false);
+        expect(x3 == x4).toBe(true);
+    });
+
+    it("notEq", () => {
+        const x = Result.Ok<string, string>("ok");
+        const x2 = Result.Ok<string, string>("ok");
+        const x3 = Result.Err<string, string>("err");
+        const x4 = Result.Err<string, string>("err");
+
+        expect(x.notEq(x2)).toBe(false);
+        expect(x.notEq(x3)).toBe(true);
+        expect(x3.notEq(x4)).toBe(false);
+
+        expect(x != x2).toBe(false);
+        expect(x != x3).toBe(true);
+        expect(x3 != x4).toBe(false);
     });
 });

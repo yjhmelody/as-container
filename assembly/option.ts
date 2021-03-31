@@ -122,6 +122,13 @@ export interface Optionable<T> {
      * @returns
      */
     eq(other: Optionable<T>): bool;
+
+    /**
+     * return false if options are both None, or the inner value is equall by `==`.
+     * @param other Option
+     * @returns
+     */
+    notEq(other: Optionable<T>): bool;
 }
 
 /**
@@ -142,12 +149,12 @@ export class Option<T> implements Optionable<T> {
 
     @inline
     get isSome(): bool {
-        return this.val != null;
+        return this.val !== null;
     }
 
     @inline
     get isNone(): bool {
-        return this.val == null;
+        return this.val === null;
     }
 
     @inline
@@ -157,13 +164,13 @@ export class Option<T> implements Optionable<T> {
 
     @inline
     expect(msg: string): T {
-        assert(this.val != null, msg);
+        assert(this.val !== null, msg);
         return this.val as T;
     }
 
     @inline
     unwrapOr(def: T): T {
-        if (this.val != null) {
+        if (this.val !== null) {
             return this.val as T;
         }
         return def;
@@ -171,35 +178,35 @@ export class Option<T> implements Optionable<T> {
 
     @inline
     unwrapOrElse(fn: RecoveryFn<T>): T {
-        if (this.val != null) {
+        if (this.val !== null) {
             return this.val as T;
         }
         return fn();
     }
 
     map<U>(fn: MapFn<T, U>): Option<U> {
-        if (this.val == null) {
+        if (this.val === null) {
             return Option.None<U>();
         }
         return Option.Some(fn(this.val as T));
     }
 
     mapOr<U>(def: U, fn: MapFn<T, U>): U {
-        if (this.val == null) {
+        if (this.val === null) {
             return def;
         }
         return fn(this.val as T);
     }
 
     mapOrElse<U>(defFn: RecoveryFn<U>, fn: MapFn<T, U>): U {
-        if (this.val == null) {
+        if (this.val === null) {
             return defFn();
         }
         return fn(this.val as T);
     }
 
     flatMap<U>(fn: FlatMapFn<T, U>): Option<U> {
-        if (this.val == null) {
+        if (this.val === null) {
             return Option.None<U>();
         }
         return fn(this.val as T);
@@ -218,33 +225,28 @@ export class Option<T> implements Optionable<T> {
     }
 
     or(def: Option<T>): Option<T> {
-        if (this.val != null) {
+        if (this.val !== null) {
             return Option.Some<T>(this.val as T);
         }
         return def;
     }
 
     orElse(defFn: () => Option<T>): Option<T> {
-        if (this.val != null) {
+        if (this.val !== null) {
             return Option.Some<T>(this.val as T);
         }
         return defFn();
     }
 
+    @inline
+    @operator("==")
     eq(other: Option<T>): bool {
         return this.val == other.val;
     }
 
-    // TODO: assemblyscript don't support it now.
-    // @inline @operator("==")
-    // static eq<T>(a: Option<T>, b: Option<T>): bool {
-    //     return true
-    // }
-
-    // TODO: assemblyscript don't support it now.
-    // @inline @operator('!=')
-    // static notEq<T>(a: Option<T>, b: Option<T>): bool {
-    //     return !a.eq(b);
-    // }
+    @inline
+    @operator("!=")
+    notEq(other: Option<T>): bool {
+        return !this.eq(other);
+    }
 }
-
