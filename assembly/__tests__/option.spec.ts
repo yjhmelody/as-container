@@ -103,13 +103,20 @@ describe("Option", () => {
 
     it("and", () => {
         const x = Option.Some("some");
-        expect(x.and(Option.Some<string>("and"))).toStrictEqual(Option.Some<string>("and"));
-        expect(x.and(Option.None<string>())).toStrictEqual(Option.None<string>());
+        expect(x.and(Option.Some<string>("and"))).toStrictEqual(
+            Option.Some<string>("and")
+        );
+        expect(x.and(Option.None<string>())).toStrictEqual(
+            Option.None<string>()
+        );
 
         const x2 = Option.None<string>();
-        expect(x2.and(Option.Some("some"))).toStrictEqual(Option.None<string>());
-        expect(x2.and(Option.None<string>())).toStrictEqual(Option.None<string>());
-
+        expect(x2.and(Option.Some("some"))).toStrictEqual(
+            Option.None<string>()
+        );
+        expect(x2.and(Option.None<string>())).toStrictEqual(
+            Option.None<string>()
+        );
     });
 
     it("orElse", () => {
@@ -121,12 +128,32 @@ describe("Option", () => {
     });
 
     it("eq", () => {
-        const x = Option.Some("233");
-        const x2 = Option.Some("233");
+        const x = Option.Some("some");
+        const x2 = Option.Some("some");
         const x3 = Option.None<string>();
         const x4 = Option.None<string>();
+
         expect(x.eq(x2)).toBe(true);
         expect(x.eq(x3)).toBe(false);
         expect(x3.eq(x4)).toBe(true);
+
+        expect(x == x2).toBe(true);
+        expect(x == x3).toBe(false);
+        expect(x3 == x4).toBe(true);
+    });
+
+    it("notEq", () => {
+        const x = Option.Some("some");
+        const x2 = Option.Some("some");
+        const x3 = Option.None<string>();
+        const x4 = Option.None<string>();
+
+        expect(x.notEq(x2)).toBe(false);
+        expect(x.notEq(x3)).toBe(true);
+        expect(x3.notEq(x4)).toBe(false);
+
+        expect(x != x2).toBe(false);
+        expect(x != x3).toBe(true);
+        expect(x3 != x4).toBe(false);
     });
 });
