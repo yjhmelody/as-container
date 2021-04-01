@@ -1,6 +1,11 @@
 import { Option } from "./option";
 import { Resultable } from "./resultable";
-import { FlatMapErrFn, FlatMapOkFn, MapFn, RecoveryWithErrorFn } from "./shared";
+import {
+    FlatMapErrFn,
+    FlatMapOkFn,
+    MapFn,
+    RecoveryWithErrorFn,
+} from "./shared";
 
 /**
  * Result impls Resultable.
@@ -152,6 +157,14 @@ export class Result<O, E> implements Resultable<O, E> {
     @inline
     @operator("!=")
     notEq(other: Result<O, E>): bool {
-        return !this.eq(other);
+        if (this._ok !== null && other._ok !== null) {
+            return this._ok != other._ok;
+        }
+
+        if (this._err !== null && other._err !== null) {
+            return this._err != other._err;
+        }
+
+        return true;
     }
 }

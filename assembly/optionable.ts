@@ -116,14 +116,14 @@ export interface Optionable<T> {
     orElse(defFn: () => Option<T>): Option<T>;
 
     /**
-     * return true if options are both None, or the inner value is equall by `==`.
+     * return true if options are both None, or the inner value is equal by `==`.
      * @param other Option
      * @returns
      */
     eq(other: Optionable<T>): bool;
 
     /**
-     * return false if options are both None, or the inner value is equall by `==`.
+     * return true if options are different option types, or the inner value is not equal by `!=`.
      * @param other Option
      * @returns
      */

@@ -1,4 +1,4 @@
-import { Box } from "../box";
+import { Box, False, True } from "../box";
 
 describe("Box", () => {
     it("from, new", () => {
@@ -9,54 +9,104 @@ describe("Box", () => {
 
     it("unwrap", () => {
         const box = Box.from("233");
-        expect(box.unwrap()).toBe("233");
+        expect(box.unwrap()).toStrictEqual("233");
     });
 
     it("map", () => {
         const box = Box.from(1);
-        expect(box.map<i32>((n) => n * 2).unwrap()).toBe(2);
+        expect(box.map<i32>((n) => n * 2).unwrap()).toStrictEqual(2);
     });
 
     it("eq", () => {
         const box = Box.from(1);
         const box2 = Box.from(1);
-        expect(box == box2).toBe(true);
-        expect(box.eq(box2)).toBe(true);
+        expect(box == box2).toStrictEqual(True);
+        expect(box.eq(box2)).toStrictEqual(True);
 
         const box3 = Box.from("box");
         const box4 = Box.from("box");
-        expect(box3 == box4).toBe(true);
+        expect((box3 == box4).unwrap()).toStrictEqual(true);
 
         const s = "box";
         const box5 = Box.from(s);
         const box6 = Box.from(s);
-        expect(box5 == box6).toBe(true);
+        expect(box5 == box6).toStrictEqual(True);
 
         const p1 = new Person();
         const p2 = new Person();
 
-        expect(p1 == p2).toBe(false);
+        expect(Box.from(p1) != Box.from(p2)).toStrictEqual(False);
     });
 
     it("notEq", () => {
         const box = Box.from(1);
         const box2 = Box.from(2);
-        expect(box != box2).toBe(true);
-        expect(box.notEq(box2)).toBe(true);
+        expect(box != box2).toStrictEqual(True);
+        expect(box.notEq(box2)).toStrictEqual(True);
 
         const box3 = Box.from("box");
         const box4 = Box.from("box");
-        expect(box3 != box4).toBe(false);
+        expect(box3 != box4).toStrictEqual(False);
 
         const s = "box";
         const box5 = Box.from(s);
         const box6 = Box.from(s);
-        expect(box5 != box6).toBe(false);
+        expect(box5 != box6).toStrictEqual(False);
 
         const p1 = new Person();
         const p2 = new Person();
 
-        expect(p1 != p2).toBe(true);
+        expect(Box.from(p1) != Box.from(p2)).toStrictEqual(True);
+    });
+
+    it("Box<i32>", () => {
+        const box = Box.from(2);
+        const box2 = Box.from(1);
+        const box3 = Box.from(0);
+        const box4 = Box.from(-1);
+
+        expect(box == box2).toStrictEqual(False);
+        expect(box != box2).toStrictEqual(True);
+
+        expect(box > box2).toStrictEqual(True);
+        expect(box >= box2).toStrictEqual(True);
+        expect(box < box2).toStrictEqual(False);
+        expect(box <= box2).toStrictEqual(False);
+
+        expect(box >> box2).toStrictEqual(Box.from(1));
+        expect(box >>> box2).toStrictEqual(Box.from(1));
+        expect(box << box2).toStrictEqual(Box.from(4));
+        expect(box & box2).toStrictEqual(Box.from(0));
+        expect(box | box2).toStrictEqual(Box.from(3));
+        expect(box ^ box2).toStrictEqual(Box.from(3));
+
+        expect(box + box2).toStrictEqual(Box.from(3));
+        expect(box - box2).toStrictEqual(Box.from(1));
+        expect(box * box2).toStrictEqual(Box.from(2));
+        expect(box / box2).toStrictEqual(Box.from(2));
+        expect(box ** box2).toStrictEqual(Box.from(2));
+        expect(box % box2).toStrictEqual(Box.from(0));
+
+        expect(!box).toStrictEqual(False);
+        expect(!box3).toStrictEqual(True);
+        expect(~box).toStrictEqual(Box.from(~2));
+        expect(+box4).toStrictEqual(Box.from(1));
+        expect(-box4).toStrictEqual(Box.from(1));
+    });
+
+    it("Box<string>", () => {
+        const box = Box.from("2");
+        const box2 = Box.from("1");
+
+        expect(box == box2).toStrictEqual(False);
+        expect(box != box2).toStrictEqual(True);
+
+        expect(box > box2).toStrictEqual(True);
+        expect(box >= box2).toStrictEqual(True);
+        expect(box < box2).toStrictEqual(False);
+        expect(box <= box2).toStrictEqual(False);
+
+        expect(box + box2).toStrictEqual(Box.from("21"));
     });
 });
 
