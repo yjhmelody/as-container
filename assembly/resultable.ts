@@ -118,7 +118,7 @@ export interface Resultable<O, E> {
     eq(other: Resultable<O, E>): bool;
 
     /**
-     * return false if results are both Ok or Err and the value is equal by `==`.
+     * return true if results are different result types, or the value is not equal by `!=`.
      * @param other Option
      * @returns
      */
