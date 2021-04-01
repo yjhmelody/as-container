@@ -1,6 +1,6 @@
 {
   "name": "as-container",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "assemblyscript version of Rust Option<T> and Result<T, E> etc.",
   "author": "yjhmelody <yjh465402634@gmail.com>",
   "license": "MIT",
