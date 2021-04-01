@@ -1,14 +1,9 @@
-export interface Boxable<T> {
-    unwrap(): T;
-
-    map<U>(fn: (arg: T) => U): Box<U>;
-}
 
 /**
  * Box is used to wrap primitive type such u32 which cannot be null.
  * All operators of box have been overloaded to box version
  */
-export class Box<T> implements Boxable<T> {
+export class Box<T> {
     constructor(private readonly val: T) {}
 
     @inline
