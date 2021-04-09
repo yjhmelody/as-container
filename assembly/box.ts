@@ -28,40 +28,40 @@ export class Box<T> {
 
     @inline
     @operator("==")
-    eq(other: Box<T> | null): Box<bool> {
-        if (other === null) return False;
-        return Box.from(this.val == other.val);
+    eq(other: Box<T> | null): bool {
+        if (other === null) return false;
+        return this.val == other.val;
     }
 
     @inline
     @operator("!=")
-    notEq(other: Box<T> | null): Box<bool> {
-        if (other === null) return False;
-        return Box.from(this.val != other.val);
+    notEq(other: Box<T> | null): bool {
+        if (other === null) return false;
+        return this.val != other.val;
     }
 
     @inline
     @operator(">")
-    gt(other: Box<T>): Box<bool> {
-        return Box.from(this.val > other.val);
+    gt(other: Box<T>): bool {
+        return this.val > other.val;
     }
 
     @inline
     @operator(">=")
-    ge(other: Box<T>): Box<bool> {
-        return Box.from(this.val >= other.val);
+    ge(other: Box<T>): bool {
+        return this.val >= other.val;
     }
 
     @inline
     @operator("<")
-    lt(other: Box<T>): Box<bool> {
-        return Box.from(this.val < other.val);
+    lt(other: Box<T>): bool {
+        return this.val < other.val;
     }
 
     @inline
     @operator("<=")
-    le(other: Box<T>): Box<bool> {
-        return Box.from(this.val <= other.val);
+    le(other: Box<T>): bool {
+        return this.val <= other.val;
     }
 
     @inline
@@ -138,8 +138,8 @@ export class Box<T> {
 
     @inline
     @operator.prefix("!")
-    not(): Box<bool> {
-        return Box.from(!this.val);
+    not(): bool {
+        return !this.val;
     }
 
     @inline
@@ -160,6 +160,3 @@ export class Box<T> {
         return Box.from<T>(-this.val);
     }
 }
-
-export const True = new Box<bool>(true);
-export const False = new Box<bool>(false);

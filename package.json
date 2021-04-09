@@ -1,6 +1,6 @@
 {
   "name": "as-container",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "assemblyscript version of Rust Option<T> and Result<T, E> etc.",
   "author": "yjhmelody <yjh465402634@gmail.com>",
   "license": "MIT",
@@ -27,8 +27,8 @@
     "@as-pect/assembly": "6.0.0",
     "@as-pect/cli": "6.0.0",
     "@as-pect/core": "6.0.0",
-    "@typescript-eslint/eslint-plugin": "4.20",
-    "@typescript-eslint/parser": "4.20",
+    "@typescript-eslint/eslint-plugin": "4.21",
+    "@typescript-eslint/parser": "4.21",
     "assemblyscript": "0.18",
     "eslint": "7.23",
     "typescript": "4.2"
