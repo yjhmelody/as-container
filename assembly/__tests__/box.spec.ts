@@ -1,4 +1,4 @@
-import { Box, False, True } from "../box";
+import { Box } from "../box";
 
 describe("Box", () => {
     it("from, new", () => {
@@ -20,43 +20,43 @@ describe("Box", () => {
     it("eq", () => {
         const box = Box.from(1);
         const box2 = Box.from(1);
-        expect(box == box2).toStrictEqual(True);
-        expect(box.eq(box2)).toStrictEqual(True);
+        expect(box == box2).toStrictEqual(true);
+        expect(box.eq(box2)).toStrictEqual(true);
 
         const box3 = Box.from("box");
         const box4 = Box.from("box");
-        expect((box3 == box4).unwrap()).toStrictEqual(true);
+        expect((box3 == box4)).toStrictEqual(true);
 
         const s = "box";
         const box5 = Box.from(s);
         const box6 = Box.from(s);
-        expect(box5 == box6).toStrictEqual(True);
+        expect(box5 == box6).toStrictEqual(true);
 
         const p1 = new Person();
         const p2 = new Person();
 
-        expect(Box.from(p1) != Box.from(p2)).toStrictEqual(False);
+        expect(Box.from(p1) != Box.from(p2)).toBe(true);
     });
 
     it("notEq", () => {
         const box = Box.from(1);
         const box2 = Box.from(2);
-        expect(box != box2).toStrictEqual(True);
-        expect(box.notEq(box2)).toStrictEqual(True);
+        expect(box != box2).toStrictEqual(true);
+        expect(box.notEq(box2)).toStrictEqual(true);
 
         const box3 = Box.from("box");
         const box4 = Box.from("box");
-        expect(box3 != box4).toStrictEqual(False);
+        expect(box3 != box4).toStrictEqual(false);
 
         const s = "box";
         const box5 = Box.from(s);
         const box6 = Box.from(s);
-        expect(box5 != box6).toStrictEqual(False);
+        expect(box5 != box6).toStrictEqual(false);
 
         const p1 = new Person();
         const p2 = new Person();
 
-        expect(Box.from(p1) != Box.from(p2)).toStrictEqual(True);
+        expect(Box.from(p1) != Box.from(p2)).toStrictEqual(true);
     });
 
     it("Box<i32>", () => {
@@ -65,13 +65,13 @@ describe("Box", () => {
         const box3 = Box.from(0);
         const box4 = Box.from(-1);
 
-        expect(box == box2).toStrictEqual(False);
-        expect(box != box2).toStrictEqual(True);
+        expect(box == box2).toStrictEqual(false);
+        expect(box != box2).toStrictEqual(true);
 
-        expect(box > box2).toStrictEqual(True);
-        expect(box >= box2).toStrictEqual(True);
-        expect(box < box2).toStrictEqual(False);
-        expect(box <= box2).toStrictEqual(False);
+        expect(box > box2).toStrictEqual(true);
+        expect(box >= box2).toStrictEqual(true);
+        expect(box < box2).toStrictEqual(false);
+        expect(box <= box2).toStrictEqual(false);
 
         expect(box >> box2).toStrictEqual(Box.from(1));
         expect(box >>> box2).toStrictEqual(Box.from(1));
@@ -87,10 +87,10 @@ describe("Box", () => {
         expect(box ** box2).toStrictEqual(Box.from(2));
         expect(box % box2).toStrictEqual(Box.from(0));
 
-        expect(!box).toStrictEqual(False);
-        expect(!box3).toStrictEqual(True);
+        expect(!box).toStrictEqual(false);
+        expect(!box3).toStrictEqual(true);
         expect(~box).toStrictEqual(Box.from(~2));
-        expect(+box4).toStrictEqual(Box.from(1));
+        expect(+box4).toStrictEqual(Box.from(-1));
         expect(-box4).toStrictEqual(Box.from(1));
     });
 
@@ -98,13 +98,13 @@ describe("Box", () => {
         const box = Box.from("2");
         const box2 = Box.from("1");
 
-        expect(box == box2).toStrictEqual(False);
-        expect(box != box2).toStrictEqual(True);
+        expect(box == box2).toStrictEqual(false);
+        expect(box != box2).toStrictEqual(true);
 
-        expect(box > box2).toStrictEqual(True);
-        expect(box >= box2).toStrictEqual(True);
-        expect(box < box2).toStrictEqual(False);
-        expect(box <= box2).toStrictEqual(False);
+        expect(box > box2).toStrictEqual(true);
+        expect(box >= box2).toStrictEqual(true);
+        expect(box < box2).toStrictEqual(false);
+        expect(box <= box2).toStrictEqual(false);
 
         expect(box + box2).toStrictEqual(Box.from("21"));
     });
