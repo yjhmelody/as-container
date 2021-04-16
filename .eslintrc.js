@@ -149,6 +149,21 @@ module.exports = {
   
                 // Utilized to achieve portability in some cases
                 "@typescript-eslint/no-non-null-assertion": "off",
+
+                "sort-imports": "warn",
+                "no-multiple-empty-lines": "warn",
+                "no-new-object": "error",
+                "no-tabs": "warn",
+                "no-trailing-spaces": "warn",
+                "no-whitespace-before-property": "warn",
+                "object-curly-newline": "warn",
+                "semi": "warn",
+                "sort-vars": "warn",
+                "quotes": "warn",
+                "space-in-parens": "warn",
+                "space-infix-ops": "warn",
+                "spaced-comment": ["warn", "always"],
+                "space-before-function-paren": "warn"
             }
         },
   
