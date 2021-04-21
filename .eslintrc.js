@@ -150,7 +150,6 @@ module.exports = {
                 // Utilized to achieve portability in some cases
                 "@typescript-eslint/no-non-null-assertion": "off",
 
-                "sort-imports": "warn",
                 "no-multiple-empty-lines": "warn",
                 "no-new-object": "error",
                 "no-tabs": "warn",
@@ -162,8 +161,7 @@ module.exports = {
                 "quotes": "warn",
                 "space-in-parens": "warn",
                 "space-infix-ops": "warn",
-                "spaced-comment": ["warn", "always"],
-                "space-before-function-paren": "warn"
+                "spaced-comment": ["warn", "always"]
             }
         },
   

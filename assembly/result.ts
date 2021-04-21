@@ -9,6 +9,7 @@ import {
 
 /**
  * Result impls Resultable.
+ * It cannot wrap O and E which are not nullable
  */
 export class Result<O, E> implements Resultable<O, E> {
     private constructor(

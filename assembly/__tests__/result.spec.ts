@@ -164,7 +164,7 @@ describe("Result", () => {
         const x2 = Result.Ok<string, string>("ok");
         const x3 = Result.Err<string, string>("err");
         const x4 = Result.Err<string, string>("err");
-        
+
         expect(x.eq(x2)).toBe(true);
         expect(x.eq(x3)).toBe(false);
         expect(x3.eq(x4)).toBe(true);

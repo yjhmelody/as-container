@@ -25,7 +25,7 @@ describe("Box", () => {
 
         const box3 = Box.from("box");
         const box4 = Box.from("box");
-        expect((box3 == box4)).toStrictEqual(true);
+        expect(box3 == box4).toStrictEqual(true);
 
         const s = "box";
         const box5 = Box.from(s);
@@ -111,3 +111,17 @@ describe("Box", () => {
 });
 
 class Person {}
+
+class Foo {
+    private static foo: bool = false;
+}
+
+class Bar {
+    bar(): bool {
+        return Foo.foo;
+    }
+}
+
+let b: Bar = new Bar();
+
+b.bar();

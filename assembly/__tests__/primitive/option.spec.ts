@@ -1,18 +1,51 @@
-import { Option } from "../option";
+import { Option } from "../../primitive/option";
 
 describe("Option", () => {
     it("instantiate", () => {
-        expect(instantiate<Option<string>>()).toBe(Option.None<string>());
+        expect(instantiate<Option<i32>>()).toBe(Option.None<i32>());
     });
 
     it("isSome", () => {
-        const x = Option.Some("233");
-        expect(x.isSome).toBe(true);
+        {
+            const x = Option.Some(false);
+            expect(x.isSome).toBe(true);
+        }
+        {
+            const x = Option.Some(1);
+            expect(x.isSome).toBe(true);
+        }
+
+        {
+            const x = Option.Some(1.1);
+            expect(x.isSome).toBe(true);
+        }
+
+        {
+            const x = Option.Some(NaN);
+            expect(x.isSome).toBe(true);
+        }
     });
 
     it("isNone", () => {
-        const x = Option.None<string>();
-        expect(x.isNone).toBe(true);
+        {
+            const x = Option.None<i32>();
+            expect(x.isNone).toBe(true);
+        }
+
+        {
+            const x = Option.None<f32>();
+            expect(x.isNone).toBe(true);
+        }
+
+        {
+            const x = Option.None<bool>();
+            expect(x.isNone).toBe(true);
+        }
+
+        {
+            const x = Option.None<string>();
+            expect(x.isNone).toBe(true);
+        }
     });
 
     it("unwrap, expect", () => {
