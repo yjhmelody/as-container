@@ -1,5 +1,5 @@
-import { Result } from "../result";
-import { Option } from "../option";
+import { Result } from "../../primitive/result";
+import { Option } from "../../primitive/option";
 
 class Foo {
     n: u32;
@@ -7,8 +7,20 @@ class Foo {
 
 describe("Result", () => {
     it("isOk", () => {
-        const x = Result.Ok<string, string>("233");
-        expect(x.isOk).toBe(true);
+        {
+            const x = Result.Ok<string, string>("233");
+            expect(x.isOk).toBe(true);
+        }
+
+        {
+            const x = Result.Ok<i32, string>(1);
+            expect(x.isOk).toBe(true);
+        }
+
+        {
+            const x = Result.Err<i32, string>("233");
+            expect(x.isOk).toBe(false);
+        }
     });
 
     it("isErr", () => {

@@ -1,6 +1,5 @@
-import { Box } from "../box";
-import { boxOption, optionCloned } from "../util";
-import { Option } from "../option";
+import { Box } from "../../box";
+import { Option, boxOption, optionCloned } from "../../reference";
 
 describe("util", () => {
     it("boxOption", () => {

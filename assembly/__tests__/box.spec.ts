@@ -111,17 +111,3 @@ describe("Box", () => {
 });
 
 class Person {}
-
-class Foo {
-    private static foo: bool = false;
-}
-
-class Bar {
-    bar(): bool {
-        return Foo.foo;
-    }
-}
-
-let b: Bar = new Bar();
-
-b.bar();

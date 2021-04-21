@@ -1,6 +1,8 @@
-import { Option } from "./option";
-import { Result } from "./result";
-import { FlatMapErrFn, FlatMapOkFn, MapFn, RecoveryWithErrorFn } from "./shared";
+import { MapFn, RecoveryWithErrorFn } from "./shared";
+import { Optionable } from "./optionable";
+
+type FlatMapOkFn<O, U, E> = MapFn<O, Resultable<U, E>>;
+type FlatMapErrFn<O, E, F> = MapFn<E, Resultable<O, F>>;
 
 export interface Resultable<O, E> {
     /**
@@ -18,14 +20,14 @@ export interface Resultable<O, E> {
      *  If the self is `Ok`, returns `Some<T>`.
      *  Otherwise, returns `None<T>`.
      */
-    ok(): Option<O>;
+    ok(): Optionable<O>;
 
     /**
      *  Converts from `Result<T, E>` to `Option<E>`.
      *  If the self is `Err`, returns `Some<E>`.
      *  Otherwise, returns `None<E>`.
      */
-    err(): Option<E>;
+    err(): Optionable<E>;
 
     /**
      *  Maps a `Result<T, E>` to `Result<U, E>` by applying a function `mapFn<T, U>`
@@ -33,7 +35,7 @@ export interface Resultable<O, E> {
      *
      *  This function can be used to compose the results of two functions.
      */
-    map<U>(op: MapFn<O, U>): Result<U, E>;
+    map<U>(op: MapFn<O, U>): Resultable<U, E>;
 
     /**
      *  Applies a function to the contained value (if Ok), or returns the provided default (if Err).
@@ -53,29 +55,29 @@ export interface Resultable<O, E> {
      *
      *  This function can be used to pass through a successful result while handling an error.
      */
-    mapErr<F>(op: MapFn<E, F>): Result<O, F>;
+    mapErr<F>(op: MapFn<E, F>): Resultable<O, F>;
 
     /**
      *  Returns `res` if the result is `Ok`, otherwise returns the `Err` value of self.
      */
-    and<U>(res: Result<U, E>): Result<U, E>;
+    and<U>(res: Resultable<U, E>): Resultable<U, E>;
 
     /**
      *  Calls `op` if the result is `Ok`, otherwise returns the `Err` value of self.
      *  This function can be used for control flow based on result values.
      */
-    andThen<U>(op: FlatMapOkFn<O, U, E>): Result<U, E>;
+    andThen<U>(op: FlatMapOkFn<O, U, E>): Resultable<U, E>;
 
     /**
      *  Returns `res` if the result is `Err`, otherwise returns the `Ok` value of self.
      */
-    or<F>(res: Result<O, F>): Result<O, F>;
+    or<F>(res: Resultable<O, F>): Resultable<O, F>;
 
     /**
      *  Calls `op` if the result is `Err`, otherwise returns the `Ok` value of self.
      *  This function can be used for control flow based on result values.
      */
-    orElse<F>(op: FlatMapErrFn<O, E, F>): Result<O, F>;
+    orElse<F>(op: FlatMapErrFn<O, E, F>): Resultable<O, F>;
 
     /**
      *  Return the inner `T` of a `Ok(T)`. Panif if the self is a `Err`

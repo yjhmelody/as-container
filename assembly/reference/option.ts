@@ -1,9 +1,13 @@
-import { Optionable } from "./optionable";
-import { FlatMapFn, MapFn, RecoveryFn } from "./shared";
+import { Optionable } from "../optionable";
+import {  MapFn, RecoveryFn } from "../shared";
+
+export type FlatMapFn<T, U> = MapFn<T, Option<U>>;
 
 /**
- * Option impls Optionable.
- * It cannot wrap T which is not nullable
+ * Type Option represents an optional value: every Option is either Some and contains a value,
+ * or None, and does not.
+ *
+ * The Option version can only wrap reference type, but it will save some bytes.
  */
 export class Option<T> implements Optionable<T> {
     constructor(private readonly val: T | null = null) {}

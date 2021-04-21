@@ -160,8 +160,7 @@ module.exports = {
                 "sort-vars": "warn",
                 "quotes": "warn",
                 "space-in-parens": "warn",
-                "space-infix-ops": "warn",
-                "spaced-comment": ["warn", "always"]
+                "space-infix-ops": "warn"
             }
         },
   

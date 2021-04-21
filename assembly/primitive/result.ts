@@ -1,13 +1,19 @@
 import { Option } from "./option";
 import { instantiateZero } from "../util";
 import { MapFn, RecoveryWithErrorFn } from "../shared";
+import { Resultable } from "../resultable";
 
-type FlatMapOkFn<O, U, E> = MapFn<O, Result<U, E>>;
-type FlatMapErrFn<O, E, F> = MapFn<E, Result<O, F>>;
+export type FlatMapOkFn<O, U, E> = MapFn<O, Result<U, E>>;
+export type FlatMapErrFn<O, E, F> = MapFn<E, Result<O, F>>;
+
 /**
- * Result can wrap any type for O and E, but it will take up some additional memory space for flag.
+ * Result<O, E> is the type used for returning and propagating errors.
+ * It is an enum with the variants, Ok(T), representing success and containing a value,
+ * and Err(E), representing error and containing an error value.
+ *
+ * The Result version can wrap the primitive and reference type, but it will take up some more bytes.
  */
-export class Result<O, E> {
+export class Result<O, E> implements Resultable<O, E> {
     private constructor(
         private readonly _ok: O,
         private readonly _err: E,

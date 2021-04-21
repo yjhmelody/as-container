@@ -1,13 +1,16 @@
 import { MapFn, RecoveryFn } from "../shared";
 import { instantiateZero } from "../util";
+import { Optionable } from "../optionable";
 
-type FlatMapFn<T, U> = MapFn<T, Option<U>>;
+export type FlatMapFn<T, U> = MapFn<T, Option<U>>;
 
 /**
- * It can wrap any type for T, but it will take up some additional memory space for flag.
+ * Type Option represents an optional value: every Option is either Some and contains a value,
+ * or None, and does not.
  *
+ * The Option version can wrap the primitive and reference type, but it will take up some more bytes.
  */
-export class Option<T> {
+export class Option<T> implements Optionable<T> {
     constructor(
         private readonly val: T = instantiateZero<T>(),
         private _isNone: bool = true
