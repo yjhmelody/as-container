@@ -5,7 +5,11 @@ class Foo {
     n: u32;
 }
 
-describe("Result", () => {
+describe("ReferenceResult", () => {
+    it("offsetof", () => {
+        expect(offsetof<Result<i32, i8>>()).toBe(5);
+    });
+
     it("isOk", () => {
         const x = Result.Ok<string, string>("233");
         expect(x.isOk).toBe(true);

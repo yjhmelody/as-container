@@ -1,6 +1,10 @@
 import { Option } from "../../reference";
 
-describe("Option", () => {
+describe("ReferenceOption", () => {
+    it("offsetof", () => {
+        expect(offsetof<Option<i32>>()).toBe(4);
+    });
+
     it("instantiate", () => {
         expect(instantiate<Option<string>>()).toBe(Option.None<string>());
     });

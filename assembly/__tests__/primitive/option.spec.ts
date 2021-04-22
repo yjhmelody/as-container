@@ -1,8 +1,13 @@
 import { Option } from "../../primitive/option";
 
-describe("Option", () => {
+describe("PrimitiveOption", () => {
+    it("offsetof", () => {
+        expect(offsetof<Option<i32>>()).toBe(5);
+    });
+
     it("instantiate", () => {
         expect(instantiate<Option<i32>>()).toBe(Option.None<i32>());
+        expect(offsetof<Option<i32>>()).toBe(5);
     });
 
     it("isSome", () => {
