@@ -1,26 +1,45 @@
-
 /**
  * Box is used to wrap primitive type such u32 which cannot be null.
+ * After boxing, the primitive type can be used like a reference type, and such as `T | null` syntax can be used.
  * All operators of box have been overloaded to box version
  */
 export class Box<T> {
     constructor(private readonly val: T) {}
 
+    /**
+     * Create a Box version of value
+     * @param val boxed value
+     * @returns value of Box version
+     */
     @inline
     static from<T>(val: T): Box<T> {
         return new Box(val);
     }
 
+    /**
+     * Alias for Box.from
+     * @param val boxed value
+     * @returns value of Box version
+     */
     @inline
     static new<T>(val: T): Box<T> {
         return new Box(val);
     }
 
+    /**
+     * return the inner value of Box
+     * @returns the inner value
+     */
     @inline
     unwrap(): T {
         return this.val;
     }
 
+    /**
+     * Map a box to a new box
+     * @param fn a map function to do operate on inner value and return a new box
+     * @returns a new box created from the return value of function
+     */
     @inline
     map<U>(fn: (arg: T) => U): Box<U> {
         return Box.from(fn(this.val));
