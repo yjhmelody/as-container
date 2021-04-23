@@ -4,7 +4,7 @@
  * All operators of box have been overloaded to box version
  */
 export class Box<T> {
-    constructor(private readonly val: T) {}
+    constructor(protected readonly val: T) {}
 
     /**
      * Create a Box version of value

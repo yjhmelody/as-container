@@ -15,9 +15,9 @@ export type FlatMapErrFn<O, E, F> = MapFn<E, Result<O, F>>;
 export class Result<O, E> implements Resultable<O, E> {
     private constructor(
         // _ok is null when _err is not null.
-        private readonly _ok: O | null,
+        protected readonly _ok: O | null,
         // _err is null when _ok is not null.
-        private readonly _err: E | null
+        protected readonly _err: E | null
     ) {}
 
     static Ok<O, E>(ok: O): Result<O, E> {

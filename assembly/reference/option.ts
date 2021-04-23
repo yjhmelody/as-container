@@ -10,7 +10,7 @@ export type FlatMapFn<T, U> = MapFn<T, Option<U>>;
  * The Option version can only wrap reference type, but it will save some bytes.
  */
 export class Option<T> implements Optionable<T> {
-    constructor(private readonly val: T | null = null) {}
+    constructor(protected readonly val: T | null = null) {}
 
     @inline
     static Some<T>(val: T): Option<T> {

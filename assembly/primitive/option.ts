@@ -12,8 +12,8 @@ export type FlatMapFn<T, U> = MapFn<T, Option<U>>;
  */
 export class Option<T> implements Optionable<T> {
     constructor(
-        private readonly val: T = instantiateZero<T>(),
-        private _isNone: bool = true
+        protected readonly val: T = instantiateZero<T>(),
+        protected _isNone: bool = true
     ) {}
 
     @inline
