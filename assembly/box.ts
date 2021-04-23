@@ -47,111 +47,111 @@ export class Box<T> {
 
     @inline
     @operator("==")
-    eq(other: Box<T> | null): bool {
+    eq(other: this | null): bool {
         if (other === null) return false;
         return this.val == other.val;
     }
 
     @inline
     @operator("!=")
-    notEq(other: Box<T> | null): bool {
+    notEq(other: this | null): bool {
         if (other === null) return false;
         return this.val != other.val;
     }
 
     @inline
     @operator(">")
-    gt(other: Box<T>): bool {
+    gt(other: this): bool {
         return this.val > other.val;
     }
 
     @inline
     @operator(">=")
-    ge(other: Box<T>): bool {
+    ge(other: this): bool {
         return this.val >= other.val;
     }
 
     @inline
     @operator("<")
-    lt(other: Box<T>): bool {
+    lt(other: this): bool {
         return this.val < other.val;
     }
 
     @inline
     @operator("<=")
-    le(other: Box<T>): bool {
+    le(other: this): bool {
         return this.val <= other.val;
     }
 
     @inline
     @operator(">>")
-    arithmeticRightShift(other: Box<T>): Box<T> {
+    arithmeticRightShift(other: this): this {
         return Box.from<T>(this.val >> other.val);
     }
 
     @inline
     @operator(">>>")
-    logicalRightShift(other: Box<T>): Box<T> {
+    logicalRightShift(other: this): this {
         return Box.from<T>(this.val >>> other.val);
     }
 
     @inline
     @operator("<<")
-    leftShift(other: Box<T>): Box<T> {
+    leftShift(other: this): this {
         return Box.from<T>(this.val << other.val);
     }
 
     @inline
     @operator("&")
-    and(other: Box<T>): Box<T> {
+    and(other: this): this {
         return Box.from<T>(this.val & other.val);
     }
 
     @inline
     @operator("|")
-    or(other: Box<T>): Box<T> {
+    or(other: this): this {
         return Box.from<T>(this.val | other.val);
     }
 
     @inline
     @operator("^")
-    xor(other: Box<T>): Box<T> {
+    xor(other: this): this {
         return Box.from<T>(this.val ^ other.val);
     }
 
     @inline
     @operator("+")
-    add(other: Box<T>): Box<T> {
+    add(other: this): this {
         return Box.from<T>(this.val + other.val);
     }
 
     @inline
     @operator("-")
-    sub(other: Box<T>): Box<T> {
+    sub(other: this): this {
         return Box.from<T>(this.val - other.val);
     }
 
     @inline
     @operator("*")
-    multi(other: Box<T>): Box<T> {
+    multi(other: this): this {
         return Box.from<T>(this.val * other.val);
     }
 
     @inline
     @operator("/")
-    divide(other: Box<T>): Box<T> {
+    divide(other: this): this {
         return Box.from<T>(this.val / other.val);
     }
 
     @inline
     @operator("**")
-    exp(other: Box<T>): Box<T> {
+    exp(other: this): this {
         return Box.from<T>(this.val ** other.val);
     }
 
     @inline
     @operator("%")
-    remainder(other: Box<T>): Box<T> {
+    remainder(other: this): this {
         return Box.from<T>(this.val % other.val);
     }
 
@@ -163,19 +163,19 @@ export class Box<T> {
 
     @inline
     @operator.prefix("~")
-    bitNot(): Box<T> {
+    bitNot(): this {
         return Box.from<T>(~this.val);
     }
 
     @inline
     @operator.prefix("+")
-    plus(): Box<T> {
+    plus(): this {
         return Box.from<T>(+this.val);
     }
 
     @inline
     @operator.prefix("-")
-    negate(): Box<T> {
+    negate(): this {
         return Box.from<T>(-this.val);
     }
 }

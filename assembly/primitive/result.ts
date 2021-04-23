@@ -14,6 +14,7 @@ export type FlatMapErrFn<O, E, F> = MapFn<E, Result<O, F>>;
  * The Result version can wrap the primitive and reference type, but it will take up some more bytes.
  */
 export class Result<O, E> implements Resultable<O, E> {
+    @inline
     private constructor(
         protected readonly _ok: O,
         protected readonly _err: E,
@@ -168,3 +169,4 @@ export class Result<O, E> implements Resultable<O, E> {
         return !this.eq(other);
     }
 }
+

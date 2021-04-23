@@ -11,6 +11,7 @@ export type FlatMapFn<T, U> = MapFn<T, Option<U>>;
  * The Option version can wrap the primitive and reference type, but it will take up some more bytes.
  */
 export class Option<T> implements Optionable<T> {
+    @inline
     constructor(
         protected readonly val: T = instantiateZero<T>(),
         protected _isNone: bool = true
