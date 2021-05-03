@@ -24,7 +24,7 @@
     "test:summary": "asp --summary"
   },
   "devDependencies": {
-    "@as-pect/assembly": "6.0.0",
+    "@as-pect/assembly": "6.1.0",
     "@as-pect/cli": "6.0.0",
     "@as-pect/core": "6.0.0",
     "@typescript-eslint/eslint-plugin": "4.22",
