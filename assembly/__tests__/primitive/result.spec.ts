@@ -11,6 +11,14 @@ describe("PrimitiveResult", () => {
         expect(offsetof<Result<string, u64>>()).toBe(8);
     });
 
+    it("clone", () => {
+        const o = Result.Ok<i32, string>(1);
+        expect(o == o.clone()).toBe(true);
+
+        const o2 = Result.Err<i32, string>("233");
+        expect(o2 == o2.clone()).toBe(true);
+    });
+
     it("isOk", () => {
         {
             const x = Result.Ok<string, string>("233");

@@ -16,6 +16,11 @@ export interface Resultable<O, E> {
     isErr: bool;
 
     /**
+     * Return a shallow copy of Resultable<O, E>
+     * @returns
+     */
+    clone(): Resultable<O, E>;
+    /**
      *  Converts from `Result<T, E>` to `Option<T>`.
      *  If the self is `Ok`, returns `Some<T>`.
      *  Otherwise, returns `None<T>`.

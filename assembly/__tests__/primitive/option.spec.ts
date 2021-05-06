@@ -6,7 +6,13 @@ describe("PrimitiveOption", () => {
     });
 
     it("instantiate", () => {
+        const o = Option.Some<string>("233");
         expect(instantiate<Option<i32>>() == Option.None<i32>()).toBe(true);
+    });
+
+    it("clone", () => {
+        const o = Option.Some<string>("233");
+        expect(o == o.clone()).toBe(true);
     });
 
     it("isSome", () => {

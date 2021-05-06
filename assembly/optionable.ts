@@ -14,6 +14,12 @@ export interface Optionable<T> {
     readonly isNone: bool;
 
     /**
+     * Return a shallow copy of Optionable<T>
+     * @returns
+     */
+    clone(): Optionable<T>;
+
+    /**
      *  Return the inner `T` of a `Some<T>`. Panic if the self is a `None`.
      */
     unwrap(): T;

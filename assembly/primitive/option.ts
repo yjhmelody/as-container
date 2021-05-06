@@ -1,5 +1,4 @@
 import { MapFn, RecoveryFn } from "../shared";
-import { instantiateZero } from "../util";
 import { Optionable } from "../optionable";
 import { Box } from "../box";
 
@@ -9,10 +8,9 @@ export type FlatMapFn<T, U> = MapFn<T, Option<U>>;
  * Type Option represents an optional value: every Option is either Some and contains a value,
  * or None, and does not.
  *
- * The Option version can wrap the primitive and reference type, but it will take up some more bytes.
+ * The Option version can wrap the primitive and reference type, but it will take up some more bytes and increase reference overhead.
  */
 export class Option<T> implements Optionable<T> {
-    @inline
     constructor(
         protected readonly _val: Box<T> | null = null,
         protected _isNone: bool = true
@@ -36,6 +34,11 @@ export class Option<T> implements Optionable<T> {
     @inline
     get isNone(): bool {
         return this._isNone;
+    }
+
+    @inline
+    clone(): Option<T> {
+        return new Option<T>(this._val, this._isNone);
     }
 
     @inline
@@ -124,7 +127,7 @@ export class Option<T> implements Optionable<T> {
     eq(other: Option<T>): bool {
         if (this.isNone && other.isNone) {
             return true;
-        } else if(this.isSome && other.isSome) {
+        } else if (this.isSome && other.isSome) {
             return this._val!.unwrap() == other._val!.unwrap();
         } else {
             return false;

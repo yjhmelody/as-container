@@ -9,6 +9,11 @@ describe("ReferenceOption", () => {
         expect(instantiate<Option<string>>()).toBe(Option.None<string>());
     });
 
+    it("clone", () => {
+        const o = Option.Some<string>("233");
+        expect(o == o.clone()).toBe(true);
+    });
+
     it("isSome", () => {
         const x = Option.Some("233");
         expect(x.isSome).toBe(true);

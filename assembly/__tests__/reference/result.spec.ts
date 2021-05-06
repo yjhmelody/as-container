@@ -10,6 +10,16 @@ describe("ReferenceResult", () => {
         expect(offsetof<Result<i32, i8>>()).toBe(5);
     });
 
+    it("clone", () => {
+        const o = Result.Ok<string, string>("233");
+        expect(o == o.clone()).toBe(true);
+
+        const o2 = Result.Err<string, string>("233");
+        expect(o2 == o2.clone()).toBe(true);
+
+        expect(o.clone() != o2.clone()).toBe(true);
+    });
+
     it("isOk", () => {
         const x = Result.Ok<string, string>("233");
         expect(x.isOk).toBe(true);

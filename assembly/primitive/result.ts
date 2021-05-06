@@ -11,19 +11,20 @@ export type FlatMapErrFn<O, E, F> = MapFn<E, Result<O, F>>;
  * It is an enum with the variants, Ok(T), representing success and containing a value,
  * and Err(E), representing error and containing an error value.
  *
- * The Result version can wrap the primitive and reference type, but it will take up some more bytes.
+ * The Result version can wrap the primitive and reference type, but it will increase reference overhead
  */
 export class Result<O, E> implements Resultable<O, E> {
-    @inline
     private constructor(
         protected readonly _ok: Box<O> | null,
-        protected readonly _err: Box<E> | null,
+        protected readonly _err: Box<E> | null
     ) {}
 
+    @inline
     static Ok<O, E>(ok: O): Result<O, E> {
         return new Result<O, E>(Box.from<O>(ok), null);
     }
 
+    @inline
     static Err<O, E>(err: E): Result<O, E> {
         return new Result<O, E>(null, Box.from<E>(err));
     }
@@ -36,6 +37,11 @@ export class Result<O, E> implements Resultable<O, E> {
     @inline
     get isErr(): bool {
         return this._ok === null;
+    }
+
+    @inline
+    clone(): Result<O, E> {
+        return new Result<O, E>(this._ok, this._err);
     }
 
     ok(): Option<O> {
@@ -168,4 +174,3 @@ export class Result<O, E> implements Resultable<O, E> {
         return !this.eq(other);
     }
 }
-

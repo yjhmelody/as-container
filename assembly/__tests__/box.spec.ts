@@ -7,6 +7,14 @@ describe("Box", () => {
         expect(box).toStrictEqual(box2);
     });
 
+    it("clone", () => {
+        let b1 = Box.from(1);
+        const b2 = b1.clone();
+        expect(b1 == b2).toBe(true);
+        b1++;
+        expect(b1 == b2).toBe(false);
+    });
+
     it("unwrap", () => {
         const box = Box.from("233");
         expect(box.unwrap()).toStrictEqual("233");
