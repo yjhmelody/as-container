@@ -1,7 +1,7 @@
 import { Option } from "./option";
-import { instantiateZero } from "../util";
 import { MapFn, RecoveryWithErrorFn } from "../shared";
 import { Resultable } from "../resultable";
+import { Box } from "../box";
 
 export type FlatMapOkFn<O, U, E> = MapFn<O, Result<U, E>>;
 export type FlatMapErrFn<O, E, F> = MapFn<E, Result<O, F>>;
@@ -16,83 +16,82 @@ export type FlatMapErrFn<O, E, F> = MapFn<E, Result<O, F>>;
 export class Result<O, E> implements Resultable<O, E> {
     @inline
     private constructor(
-        protected readonly _ok: O,
-        protected readonly _err: E,
-        protected _is_err: bool = false
+        protected readonly _ok: Box<O> | null,
+        protected readonly _err: Box<E> | null,
     ) {}
 
     static Ok<O, E>(ok: O): Result<O, E> {
-        return new Result<O, E>(ok, instantiateZero<E>());
+        return new Result<O, E>(Box.from<O>(ok), null);
     }
 
     static Err<O, E>(err: E): Result<O, E> {
-        return new Result<O, E>(instantiateZero<O>(), err, true);
+        return new Result<O, E>(null, Box.from<E>(err));
     }
 
     @inline
     get isOk(): bool {
-        return !this._is_err;
+        return this._err === null;
     }
 
     @inline
     get isErr(): bool {
-        return this._is_err;
+        return this._ok === null;
     }
 
     ok(): Option<O> {
         if (this.isOk) {
-            return Option.Some(this._ok);
+            return Option.Some(this.unwrap());
         }
         return Option.None<O>();
     }
 
     err(): Option<E> {
         if (this.isErr) {
-            return Option.Some(this._err);
+            return Option.Some(this.unwrapErr());
         }
         return Option.None<E>();
     }
 
     map<U>(op: MapFn<O, U>): Result<U, E> {
         if (this.isOk) {
-            return Result.Ok<U, E>(op(this._ok));
+            return Result.Ok<U, E>(op(this.unwrap()));
         }
-        return Result.Err<U, E>(this._err);
+        return Result.Err<U, E>(this.unwrapErr());
     }
 
     mapOr<U>(def: U, fn: MapFn<O, U>): U {
         if (this.isOk) {
-            return fn(this._ok);
+            return fn(this.unwrap());
         }
         return def;
     }
 
     mapOrElse<U>(defFn: RecoveryWithErrorFn<E, U>, fn: MapFn<O, U>): U {
         if (this.isOk) {
-            return fn(this._ok);
+            return fn(this.unwrap());
         }
-        return defFn(this._err);
+        return defFn(this.unwrapErr());
     }
 
     mapErr<F>(op: MapFn<E, F>): Result<O, F> {
         if (this.isErr) {
-            return Result.Err<O, F>(op(this._err));
+            return Result.Err<O, F>(op(this.unwrapErr()));
         }
-        return Result.Ok<O, F>(this._ok);
+        return Result.Ok<O, F>(this.unwrap());
     }
 
     and<U>(res: Result<U, E>): Result<U, E> {
         if (this.isOk) {
             return res;
         }
-        return Result.Err<U, E>(this._err as E);
+        return Result.Err<U, E>(this.unwrapErr());
     }
 
     andThen<U>(op: FlatMapOkFn<O, U, E>): Result<U, E> {
         if (this.isOk) {
-            return op(this._ok);
+            return op(this.unwrap());
         }
-        return Result.Err<U, E>(this._err);
+        return Result.Err<U, E>(this.unwrapErr());
     }
 
     @inline
@@ -104,51 +103,51 @@ export class Result<O, E> implements Resultable<O, E> {
         if (this.isErr) {
             return res;
         }
-        return Result.Ok<O, F>(this._ok);
+        return Result.Ok<O, F>(this.unwrap());
     }
 
     orElse<F>(op: FlatMapErrFn<O, E, F>): Result<O, F> {
         if (this.isErr) {
-            return op(this._err);
+            return op(this.unwrapErr());
         }
-        return Result.Ok<O, F>(this._ok);
+        return Result.Ok<O, F>(this.unwrap());
     }
 
     @inline
     unwrap(): O {
-        return this.expect("Result: Unwrap ok");
+        return this.expect("Result: Unwrap Ok");
     }
 
     @inline
     unwrapErr(): E {
-        return this.expectErr("Result: Unwrap err");
+        return this.expectErr("Result: Unwrap Err");
     }
 
     @inline
     unwrapOr(optb: O): O {
         if (this.isOk) {
-            return this._ok;
+            return this.unwrap();
         }
         return optb;
     }
 
     unwrapOrElse(op: RecoveryWithErrorFn<E, O>): O {
         if (this.isOk) {
-            return this._ok;
+            return this.unwrap();
         }
-        return op(this._err);
+        return op(this.unwrapErr());
     }
 
     @inline
     expect(message: string): O {
         assert(this.isOk, message);
-        return this._ok;
+        return this._ok!.unwrap() as O;
     }
 
     @inline
     expectErr(message: string): E {
         assert(this.isErr, message);
-        return this._err;
+        return this._err!.unwrap() as E;
     }
 
     @inline

@@ -60,10 +60,10 @@ describe("Box", () => {
     });
 
     it("Box<i32>", () => {
-        const box = Box.from(2);
-        const box2 = Box.from(1);
-        const box3 = Box.from(0);
-        const box4 = Box.from(-1);
+        let box = Box.from(2);
+        let box2 = Box.from(1);
+        let box3 = Box.from(0);
+        let box4 = Box.from(-1);
 
         expect(box == box2).toStrictEqual(false);
         expect(box != box2).toStrictEqual(true);
@@ -92,6 +92,13 @@ describe("Box", () => {
         expect(~box).toStrictEqual(Box.from(~2));
         expect(+box4).toStrictEqual(Box.from(-1));
         expect(-box4).toStrictEqual(Box.from(1));
+
+        expect(box++).toStrictEqual(Box.from(2));
+        expect(box).toStrictEqual(Box.from(3));
+        expect(++box2).toStrictEqual(Box.from(2));
+        expect(box3--).toStrictEqual(Box.from(0));
+        expect(box3).toStrictEqual(Box.from(-1));
+        expect(--box4).toStrictEqual(Box.from(-2));
     });
 
     it("Box<string>", () => {

@@ -6,8 +6,7 @@ describe("PrimitiveOption", () => {
     });
 
     it("instantiate", () => {
-        expect(instantiate<Option<i32>>()).toBe(Option.None<i32>());
-        expect(offsetof<Option<i32>>()).toBe(5);
+        expect(instantiate<Option<i32>>() == Option.None<i32>()).toBe(true);
     });
 
     it("isSome", () => {
@@ -131,8 +130,9 @@ describe("PrimitiveOption", () => {
                 .unwrap()
         ).toBe("233233");
         expect(
-            x.andThen<string>((s) => Option.None<string>())
-        ).toStrictEqual(Option.None<string>());
+            x.andThen<string>((s) => Option.None<string>()) ==
+                Option.None<string>()
+        ).toBe(true);
     });
 
     it("or", () => {
@@ -145,19 +145,17 @@ describe("PrimitiveOption", () => {
 
     it("and", () => {
         const x = Option.Some("some");
-        expect(x.and(Option.Some<string>("and"))).toStrictEqual(
-            Option.Some<string>("and")
-        );
-        expect(x.and(Option.None<string>())).toStrictEqual(
-            Option.None<string>()
+        expect(
+            x.and(Option.Some<string>("and")) == Option.Some<string>("and")
+        ).toBe(true);
+        expect(x.and(Option.None<string>()) == Option.None<string>()).toBe(
+            true
         );
 
         const x2 = Option.None<string>();
-        expect(x2.and(Option.Some("some"))).toStrictEqual(
-            Option.None<string>()
-        );
-        expect(x2.and(Option.None<string>())).toStrictEqual(
-            Option.None<string>()
+        expect(x2.and(Option.Some("some")) == Option.None<string>()).toBe(true);
+        expect(x2.and(Option.None<string>()) == Option.None<string>()).toBe(
+            true
         );
     });
 

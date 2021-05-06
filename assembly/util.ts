@@ -7,7 +7,8 @@ export function instantiateZero<T>(): T {
         return 0;
     } else if (isBoolean(t)) {
         return false;
-    } else {
-        return instantiate<T>();
+    } else if (isNullable(t)) {
+        return null;
     }
+    return instantiate<T>();
 }

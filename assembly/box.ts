@@ -4,7 +4,7 @@
  * All operators of box have been overloaded to box version
  */
 export class Box<T> {
-    constructor(protected readonly val: T) {}
+    constructor(protected val: T) {}
 
     /**
      * Create a Box version of value
@@ -24,6 +24,11 @@ export class Box<T> {
     @inline
     static new<T>(val: T): Box<T> {
         return new Box(val);
+    }
+
+    @inline
+    clone(): Box<T> {
+        return new Box<T>(this.val);
     }
 
     /**
@@ -177,5 +182,27 @@ export class Box<T> {
     @operator.prefix("-")
     negate(): this {
         return Box.from<T>(-this.val);
+    }
+
+    @operator.prefix("++")
+    preInc(): this {
+        ++this.val;
+        return this;
+    }
+
+    @operator.prefix("--")
+    preDec(): this {
+        --this.val;
+        return this;
+    }
+
+    @operator.postfix("++")
+    postInc(): this {
+        return this.clone().preInc();
+    }
+
+    @operator.postfix("--")
+    postDec(): this {
+        return this.clone().preDec();
     }
 }

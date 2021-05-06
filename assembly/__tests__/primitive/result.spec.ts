@@ -7,7 +7,8 @@ class Foo {
 
 describe("PrimitiveResult", () => {
     it("offsetof", () => {
-        expect(offsetof<Result<i32, i8>>()).toBe(6);
+        expect(offsetof<Result<i32, i8>>()).toBe(8);
+        expect(offsetof<Result<string, u64>>()).toBe(8);
     });
 
     it("isOk", () => {
