@@ -29,7 +29,7 @@ export class Box<T> {
     }
 
     /**
-     * Return a shallow copy of box 
+     * Return a shallow copy of box
      * @returns a new box
      */
     @inline
@@ -55,7 +55,7 @@ export class Box<T> {
     map<U>(fn: (arg: T) => U): Box<U> {
         return Box.from(fn(this.val));
     }
-    
+
     /** The followings are operators overload **/
 
     @inline
@@ -194,14 +194,14 @@ export class Box<T> {
 
     @operator.prefix("++")
     preInc(): this {
-       ++this.val;
-       return this;
+        ++this.val;
+        return this;
     }
 
     @operator.prefix("--")
     preDec(): this {
-       --this.val;
-       return this;
+        --this.val;
+        return this;
     }
 
     @operator.postfix("++")
