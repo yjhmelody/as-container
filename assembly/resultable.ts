@@ -19,7 +19,7 @@ export interface Resultable<O, E> {
      * Return a shallow copy of Resultable<O, E>
      * @returns
      */
-    clone(): Resultable<O, E>;
+    clone(): this;
     /**
      *  Converts from `Result<T, E>` to `Option<T>`.
      *  If the self is `Ok`, returns `Some<T>`.
@@ -122,12 +122,12 @@ export interface Resultable<O, E> {
      * @param other Option
      * @returns
      */
-    eq(other: Resultable<O, E>): bool;
+    eq(other: this): bool;
 
     /**
      * return true if results are different result types, or the value is not equal by `!=`.
      * @param other Option
      * @returns
      */
-    notEq(other: Resultable<O, E>): bool;
+    notEq(other: this): bool;
 }
