@@ -21,19 +21,22 @@
     "lint": "eslint .",
     "checks": "asc ./assembly --noEmit --measure",
     "test": "asp --verbose",
-    "test:summary": "asp --summary"
+    "test:summary": "asp --summary",
+    "changelog": "conventional-changelog -i CHANGELOG.md -s"
+
   },
   "devDependencies": {
-    "@as-pect/assembly": "6.1.0",
-    "@as-pect/cli": "6.0.0",
-    "@as-pect/core": "6.1.0",
+    "@as-pect/assembly": "^6.1",
+    "@as-pect/cli": "^6.1",
+    "@as-pect/core": "^6.1",
     "@typescript-eslint/eslint-plugin": "4.22",
     "@typescript-eslint/parser": "4.22",
-    "assemblyscript": "0.18",
+    "assemblyscript": "^0.18",
     "eslint": "7.25",
     "typescript": "4.2"
   },
-  "releaseFiles": [
+  "files": [
+    "LICENCE",
     "index.ts",
     "assembly/",
     "README.md",

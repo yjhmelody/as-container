@@ -8,9 +8,9 @@ as-container provides some utils such as `Option` and `Result` inspired by Rust 
 
 ## Example
 
-```typescript
+```ts
 const x = Option.Some("some");
 expect(x.map<string>((s) => s + s).unwrap()).toBe("somesome");
 ```
 
-More examples can be found in [unit tests](./assembly/__tests__/option.spec.ts)
+More examples can be found in [unit tests](./assembly/__tests__/primitive/option.spec.ts)

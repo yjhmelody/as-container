@@ -7,6 +7,14 @@ describe("Box", () => {
         expect(box).toStrictEqual(box2);
     });
 
+    it("clone", () => {
+        let b1 = Box.from(1);
+        const b2 = b1.clone();
+        expect(b1 == b2).toBe(true);
+        b1++;
+        expect(b1 == b2).toBe(false);
+    });
+
     it("unwrap", () => {
         const box = Box.from("233");
         expect(box.unwrap()).toStrictEqual("233");
@@ -25,7 +33,7 @@ describe("Box", () => {
 
         const box3 = Box.from("box");
         const box4 = Box.from("box");
-        expect((box3 == box4)).toStrictEqual(true);
+        expect(box3 == box4).toStrictEqual(true);
 
         const s = "box";
         const box5 = Box.from(s);
@@ -60,10 +68,10 @@ describe("Box", () => {
     });
 
     it("Box<i32>", () => {
-        const box = Box.from(2);
-        const box2 = Box.from(1);
-        const box3 = Box.from(0);
-        const box4 = Box.from(-1);
+        let box = Box.from(2);
+        let box2 = Box.from(1);
+        let box3 = Box.from(0);
+        let box4 = Box.from(-1);
 
         expect(box == box2).toStrictEqual(false);
         expect(box != box2).toStrictEqual(true);
@@ -92,6 +100,13 @@ describe("Box", () => {
         expect(~box).toStrictEqual(Box.from(~2));
         expect(+box4).toStrictEqual(Box.from(-1));
         expect(-box4).toStrictEqual(Box.from(1));
+
+        expect(box++).toStrictEqual(Box.from(2));
+        expect(box).toStrictEqual(Box.from(3));
+        expect(++box2).toStrictEqual(Box.from(2));
+        expect(box3--).toStrictEqual(Box.from(0));
+        expect(box3).toStrictEqual(Box.from(-1));
+        expect(--box4).toStrictEqual(Box.from(-2));
     });
 
     it("Box<string>", () => {

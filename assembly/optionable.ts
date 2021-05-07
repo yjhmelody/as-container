@@ -1,5 +1,6 @@
-import { Option } from "./option";
-import { FlatMapFn, MapFn, RecoveryFn } from "./shared";
+import { MapFn, RecoveryFn } from "./shared";
+
+type FlatMapFn<T, U> = MapFn<T, Optionable<U>>;
 
 export interface Optionable<T> {
     /**
@@ -11,6 +12,12 @@ export interface Optionable<T> {
      *  Return whether the self is `None` or not.
      */
     readonly isNone: bool;
+
+    /**
+     * Return a shallow copy of Optionable<T>
+     * @returns
+     */
+    clone(): Optionable<T>;
 
     /**
      *  Return the inner `T` of a `Some<T>`. Panic if the self is a `None`.
@@ -48,7 +55,7 @@ export interface Optionable<T> {
      *      The function which is applied to the contained value and return the result
      *      if the self is a `Some<T>`.
      */
-    map<U>(fn: MapFn<T, U>): Option<U>;
+    map<U>(fn: MapFn<T, U>): Optionable<U>;
 
     /**
      *  Return `None` if the self is `None`,
@@ -58,7 +65,7 @@ export interface Optionable<T> {
      *      The function which is applied to the contained value and return the result
      *      if the self is a `Some<T>`. This result will be flattened once.
      */
-    flatMap<U>(fn: FlatMapFn<T, U>): Option<U>;
+    flatMap<U>(fn: FlatMapFn<T, U>): Optionable<U>;
 
     /**
      *  Apply a function `fn` to the contained value or return a default `def`.
@@ -89,14 +96,14 @@ export interface Optionable<T> {
      *  @param  val
      *      The value which is returned if the self is a `Some<T>`.
      */
-    and<U>(val: Optionable<U>): Option<U>;
+    and<U>(val: Optionable<U>): Optionable<U>;
 
     /**
      *  The alias of `Option<T>.flatMap()`.
      *
      *  @param  fn
      */
-    andThen<U>(fn: FlatMapFn<T, U>): Option<U>;
+    andThen<U>(fn: FlatMapFn<T, U>): Optionable<U>;
 
     /**
      *  Return the self if it contains a value, otherwise return `optb`.
@@ -104,7 +111,7 @@ export interface Optionable<T> {
      *  @param  optb
      *      The default value which is used if the self is a `None`.
      */
-    or(optb: Optionable<T>): Option<T>;
+    or(optb: Optionable<T>): Optionable<T>;
 
     /**
      *  Return the self if it contains a value,
@@ -113,7 +120,7 @@ export interface Optionable<T> {
      *  @param  defFn
      *      The function which produces a default value which is used if the self is a `None`.
      */
-    orElse(defFn: () => Option<T>): Option<T>;
+    orElse(defFn: () => Optionable<T>): Optionable<T>;
 
     /**
      * return true if options are both None, or the inner value is equal by `==`.

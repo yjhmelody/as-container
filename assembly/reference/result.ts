@@ -1,27 +1,31 @@
 import { Option } from "./option";
-import { Resultable } from "./resultable";
-import {
-    FlatMapErrFn,
-    FlatMapOkFn,
-    MapFn,
-    RecoveryWithErrorFn,
-} from "./shared";
+import { Resultable } from "../resultable";
+import { MapFn, RecoveryWithErrorFn } from "../shared";
+
+export type FlatMapOkFn<O, U, E> = MapFn<O, Result<U, E>>;
+export type FlatMapErrFn<O, E, F> = MapFn<E, Result<O, F>>;
 
 /**
- * Result impls Resultable.
+ * Result<O, E> is the type used for returning and propagating errors.
+ * It is an enum with the variants, Ok(T), representing success and containing a value,
+ * and Err(E), representing error and containing an error value.
+ *
+ * The Result version can only wrap reference type, but it will reduce reference overhead.
  */
 export class Result<O, E> implements Resultable<O, E> {
     private constructor(
         // _ok is null when _err is not null.
-        private readonly _ok: O | null,
+        protected readonly _ok: O | null,
         // _err is null when _ok is not null.
-        private readonly _err: E | null
+        protected readonly _err: E | null
     ) {}
 
+    @inline
     static Ok<O, E>(ok: O): Result<O, E> {
         return new Result<O, E>(ok, null);
     }
 
+    @inline
     static Err<O, E>(err: E): Result<O, E> {
         return new Result<O, E>(null, err);
     }
@@ -34,6 +38,11 @@ export class Result<O, E> implements Resultable<O, E> {
     @inline
     get isErr(): bool {
         return this._ok === null;
+    }
+
+    @inline
+    clone(): Result<O, E> {
+        return new Result<O, E>(this._ok, this._err);
     }
 
     ok(): Option<O> {

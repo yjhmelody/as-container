@@ -1,14 +1,39 @@
-import { Result } from "../result";
-import { Option } from "../option";
+import { Result } from "../../primitive/result";
+import { Option } from "../../primitive/option";
 
 class Foo {
     n: u32;
 }
 
-describe("Result", () => {
+describe("PrimitiveResult", () => {
+    it("offsetof", () => {
+        expect(offsetof<Result<i32, i8>>()).toBe(8);
+        expect(offsetof<Result<string, u64>>()).toBe(8);
+    });
+
+    it("clone", () => {
+        const o = Result.Ok<i32, string>(1);
+        expect(o == o.clone()).toBe(true);
+
+        const o2 = Result.Err<i32, string>("233");
+        expect(o2 == o2.clone()).toBe(true);
+    });
+
     it("isOk", () => {
-        const x = Result.Ok<string, string>("233");
-        expect(x.isOk).toBe(true);
+        {
+            const x = Result.Ok<string, string>("233");
+            expect(x.isOk).toBe(true);
+        }
+
+        {
+            const x = Result.Ok<i32, string>(1);
+            expect(x.isOk).toBe(true);
+        }
+
+        {
+            const x = Result.Err<i32, string>("233");
+            expect(x.isOk).toBe(false);
+        }
     });
 
     it("isErr", () => {
@@ -164,7 +189,7 @@ describe("Result", () => {
         const x2 = Result.Ok<string, string>("ok");
         const x3 = Result.Err<string, string>("err");
         const x4 = Result.Err<string, string>("err");
-        
+
         expect(x.eq(x2)).toBe(true);
         expect(x.eq(x3)).toBe(false);
         expect(x3.eq(x4)).toBe(true);
