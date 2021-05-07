@@ -19,14 +19,14 @@ module.exports = {
         "BigUint64Array": "readonly",
         "__non_webpack_require__": "readonly"
     },
-  
+
     // === General rules =========================================================
-  
+
     rules: {
-    // Omitted semicolons are hugely popular, yet within the compiler it makes
-    // sense to be better safe than sorry.
+        // Omitted semicolons are hugely popular, yet within the compiler it makes
+        // sense to be better safe than sorry.
         "semi": "error",
-  
+
         // Our code bases uses 4 spaces for indentation, and we enforce it here so
         // files don't mix spaces, tabs or different indentation levels.
         "indent": ["error", 4, {
@@ -39,47 +39,49 @@ module.exports = {
                 "ConditionalExpression > * > * > *"
             ]
         }],
-  
+
         // This is mostly visual style, making comments look uniform.
         "spaced-comment": ["error", "always", {
-            "markers": ["/"],   // triple-slash
+            "markers": ["/"], // triple-slash
             "exceptions": ["/"] // all slashes
         }],
-  
+
         // This tends to be annoying as it encourages developers to make everything
         // that is never reassigned a 'const', sometimes semantically incorrect so,
         // typically leading to huge diffs in follow-up PRs modifying affected code.
         "prefer-const": "off",
-  
+
         // It is perfectly fine to declare top-level variables with `var`, yet this
         // rule doesn't provide configuration options that would help.
         "no-var": "off",
-  
+
         // Quite often, dealing with multiple related cases at once or otherwise
         // falling through is exactly the point of using a switch.
         "no-fallthrough": "off",
-  
+
         // Typical false-positives here are `do { ... } while (true)` statements or
         // similar, but the only option provided here is not checking any loops.
-        "no-constant-condition": ["error", { checkLoops: false }],
-  
+        "no-constant-condition": ["error", {
+            checkLoops: false
+        }],
+
         // Functions are nested in blocks occasionally, and there haven't been any
         // problems with this so far, so turning the check off.
         "no-inner-declarations": "off",
-  
+
         // Quite common in scenarios where an iteration starts at `current = this`.
         "@typescript-eslint/no-this-alias": "off",
-  
+
         // Disabled here, but enabled again for JavaScript files.
         "no-unused-vars": "off",
-  
+
         // Disabled here, but enabled again for TypeScript files.
         "@typescript-eslint/no-unused-vars": "off"
     },
     overrides: [
-  
+
         // === JavaScript rules ====================================================
-  
+
         {
             env: {
                 "browser": true,
@@ -94,10 +96,10 @@ module.exports = {
             rules: {
                 // We are testing both ESM and UMD, so don't limit us.
                 "@typescript-eslint/no-var-requires": "off",
-  
+
                 // This rule does not behave well in JS files.
                 "@typescript-eslint/explicit-module-boundary-types": "off",
-  
+
                 // Enforcing to remove function parameters on stubs makes code less
                 // maintainable, so we instead allow unused function parameters.
                 "no-unused-vars": [
@@ -109,9 +111,9 @@ module.exports = {
                 ]
             }
         },
-  
+
         // === TypeScript rules ====================================================
-  
+
         {
             files: [
                 "**/*.ts"
@@ -129,24 +131,23 @@ module.exports = {
                 ]
             }
         },
-  
+
         // === AssemblyScript rules (extends TypeScript rules) =====================
-  
+
         {
             files: [
-                "**/assembly/**/*.ts",
-                "src/**/*.ts"
+                "**/assembly/**/*.ts"
             ],
             rules: {
                 // Namespaces are quite useful in AssemblyScript
                 "@typescript-eslint/no-namespace": "off",
-  
+
                 // There is actually codegen difference here
                 "@typescript-eslint/no-array-constructor": "off",
-  
+
                 // Sometimes it can't be avoided to add a @ts-ignore
                 "@typescript-eslint/ban-ts-comment": "off",
-  
+
                 // Utilized to achieve portability in some cases
                 "@typescript-eslint/no-non-null-assertion": "off",
 
@@ -163,42 +164,9 @@ module.exports = {
                 "space-infix-ops": "warn"
             }
         },
-  
-        // === Standard Library rules (extends AssemblyScript rules) ===============
-  
-        {
-            files: [
-                "assembly/codegen/std/assembly/**/*.ts"
-            ],
-            rules: {
-                // We are implementing with --noLib, so we shadow all the time
-                "no-shadow-restricted-names": "off",
-  
-                // Similarly, sometimes we need the return type to be String, not string
-                "@typescript-eslint/ban-types": "off"
-            }
-        },
-  
-        // === Standard Definition rules (extends TypeScript rules) ================
-  
-        {
-            files: [
-                "assembly/codegen/std/**/*.d.ts"
-            ],
-            rules: {
-                // Often required to achieve compatibility with TypeScript
-                "@typescript-eslint/no-explicit-any": "off",
-  
-                // Interfaces can be stubs here, i.e. not yet fully implemented
-                "@typescript-eslint/no-empty-interface": "off",
-  
-                // Definitions make use of `object` to model rather unusual constraints
-                "@typescript-eslint/ban-types": "off"
-            }
-        },
-  
+
         // === Test rules (extends TypeScript rules) ===============================
-  
+
         {
             files: [
                 "assembly/__tests__/**/*.ts",
