@@ -41,8 +41,8 @@ export class Result<O, E> implements Resultable<O, E> {
     }
 
     @inline
-    clone(): Result<O, E> {
-        return new Result<O, E>(this._ok, this._err);
+    clone(): this {
+        return instantiate<this>(this._ok, this._err);
     }
 
     ok(): Option<O> {
@@ -159,13 +159,13 @@ export class Result<O, E> implements Resultable<O, E> {
 
     @inline
     @operator("==")
-    eq(other: Result<O, E>): bool {
+    eq(other: this): bool {
         return this._ok == other._ok && this._err == other._err;
     }
 
     @inline
     @operator("!=")
-    notEq(other: Result<O, E>): bool {
+    notEq(other: this): bool {
         if (this._ok !== null && other._ok !== null) {
             return this._ok != other._ok;
         }

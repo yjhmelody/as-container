@@ -33,8 +33,8 @@ export class Box<T> {
      * @returns a new box
      */
     @inline
-    clone(): Box<T> {
-        return new Box<T>(this._val);
+    clone(): this {
+        return instantiate<this>(this._val);
     }
 
     /**
@@ -99,73 +99,85 @@ export class Box<T> {
     @inline
     @operator(">>")
     shr(other: this): this {
-        return Box.from<T>(this._val >> other._val);
+        // @ts-ignore
+        return instantiate<this>(this._val >> other._val);
     }
 
     @inline
     @operator(">>>")
     shr_u(other: this): this {
-        return Box.from<T>(this._val >>> other._val);
+        // @ts-ignore
+        return instantiate<this>(this._val >>> other._val);
     }
 
     @inline
     @operator("<<")
     shl(other: this): this {
-        return Box.from<T>(this._val << other._val);
+        // @ts-ignore
+        return instantiate<this>(this._val << other._val);
     }
 
     @inline
     @operator("&")
     and(other: this): this {
-        return Box.from<T>(this._val & other._val);
+        // @ts-ignore
+        return instantiate<this>(this._val & other._val);
     }
 
     @inline
     @operator("|")
     or(other: this): this {
-        return Box.from<T>(this._val | other._val);
+        // @ts-ignore
+        return instantiate<this>(this._val | other._val);
     }
 
     @inline
     @operator("^")
     xor(other: this): this {
-        return Box.from<T>(this._val ^ other._val);
+        // @ts-ignore
+        return instantiate<this>(this._val ^ other._val);
     }
 
     @inline
     @operator("+")
     add(other: this): this {
-        return Box.from<T>(this._val + other._val);
+        // @ts-ignore
+        return instantiate<this>(this._val + other._val);
     }
 
     @inline
     @operator("-")
     sub(other: this): this {
-        return Box.from<T>(this._val - other._val);
+        // @ts-ignore
+        return instantiate<this>(this._val - other._val);
     }
 
     @inline
     @operator("*")
     mul(other: this): this {
-        return Box.from<T>(this._val * other._val);
+        // @ts-ignore
+        return instantiate<this>(this._val * other._val);
     }
 
     @inline
     @operator("/")
     div(other: this): this {
-        return Box.from<T>(this._val / other._val);
+        // @ts-ignore
+        return instantiate<this>(this._val / other._val);
     }
 
     @inline
     @operator("**")
     pow(other: this): this {
-        return Box.from<T>(this._val ** other._val);
+        // @ts-ignore
+        return instantiate<this>(this._val ** other._val);
     }
 
     @inline
     @operator("%")
     rem(other: this): this {
-        return Box.from<T>(this._val % other._val);
+        // @ts-ignore
+        return instantiate<this>(this._val % other._val);
     }
 
     @inline
@@ -177,29 +189,31 @@ export class Box<T> {
     @inline
     @operator.prefix("~")
     not(): this {
-        return Box.from<T>(~this._val);
+        return instantiate<this>(~this._val);
     }
 
     @inline
     @operator.prefix("+")
     pos(): this {
-        return Box.from<T>(+this._val);
+        return instantiate<this>(+this._val);
     }
 
     @inline
     @operator.prefix("-")
     neg(): this {
-        return Box.from<T>(-this._val);
+        return instantiate<this>(-this._val);
     }
 
     @operator.prefix("++")
     preInc(): this {
+        // @ts-ignore
         ++this._val;
         return this;
     }
 
     @operator.prefix("--")
     preDec(): this {
+        // @ts-ignore
         --this._val;
         return this;
     }

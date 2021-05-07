@@ -37,8 +37,8 @@ export class Option<T> implements Optionable<T> {
     }
 
     @inline
-    clone(): Option<T> {
-        return new Option<T>(this._val, this._isNone);
+    clone(): this {
+        return instantiate<this>(this._val, this._isNone);
     }
 
     @inline
@@ -124,7 +124,7 @@ export class Option<T> implements Optionable<T> {
 
     @inline
     @operator("==")
-    eq(other: Option<T>): bool {
+    eq(other: this): bool {
         if (this.isNone && other.isNone) {
             return true;
         } else if (this.isSome && other.isSome) {
@@ -136,7 +136,7 @@ export class Option<T> implements Optionable<T> {
 
     @inline
     @operator("!=")
-    notEq(other: Option<T>): bool {
+    notEq(other: this): bool {
         return !this.eq(other);
     }
 }

@@ -17,7 +17,7 @@ export interface Optionable<T> {
      * Return a shallow copy of Optionable<T>
      * @returns
      */
-    clone(): Optionable<T>;
+    clone(): this;
 
     /**
      *  Return the inner `T` of a `Some<T>`. Panic if the self is a `None`.
@@ -127,12 +127,12 @@ export interface Optionable<T> {
      * @param other Option
      * @returns
      */
-    eq(other: Optionable<T>): bool;
+    eq(other: this): bool;
 
     /**
      * return true if options are different option types, or the inner value is not equal by `!=`.
      * @param other Option
      * @returns
      */
-    notEq(other: Optionable<T>): bool;
+    notEq(other: this): bool;
 }
