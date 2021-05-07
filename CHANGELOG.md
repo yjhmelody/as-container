@@ -1,3 +1,9 @@
+## <small>0.5.1 (2021-05-07)</small>
+
+* fix: use `this` for some return type (#23) ([5b84b4d](https://github.com/yjhmelody/as-container/commit/5b84b4d)), closes [#23](https://github.com/yjhmelody/as-container/issues/23)
+
+
+
 ## 0.5.0 (2021-05-07)
 
 * v0.5.0 (#21) ([aef064a](https://github.com/yjhmelody/as-container/commit/aef064a)), closes [#21](https://github.com/yjhmelody/as-container/issues/21)
