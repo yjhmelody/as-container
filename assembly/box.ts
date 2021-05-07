@@ -1,12 +1,12 @@
 /**
- * Box is used to wrap primitive type such u32 which cannot be null.
+ * Box is used to wrap primitive type such u32 which cannot be null. AS do not support a reference version of primitive type.
  * Note: Although Box can also wrap other reference types, it is of little significance.
  * After boxing, the primitive type can be used like a reference type, and such as `T | null` syntax can be used.
  * All operators of box have been overloaded to box version.
  * Note: Please use overloaded operators instead of corresponding methods, because method names are not stable yet.
  */
 export class Box<T> {
-    constructor(protected val: T) {}
+    constructor(protected _val: T) {}
 
     /**
      * Create a Box version of value
@@ -34,7 +34,7 @@ export class Box<T> {
      */
     @inline
     clone(): Box<T> {
-        return new Box<T>(this.val);
+        return new Box<T>(this._val);
     }
 
     /**
@@ -43,7 +43,7 @@ export class Box<T> {
      */
     @inline
     unwrap(): T {
-        return this.val;
+        return this._val;
     }
 
     /**
@@ -53,7 +53,7 @@ export class Box<T> {
      */
     @inline
     map<U>(fn: (arg: T) => U): Box<U> {
-        return Box.from(fn(this.val));
+        return Box.from(fn(this._val));
     }
 
     /** The followings are operators overload **/
@@ -62,145 +62,145 @@ export class Box<T> {
     @operator("==")
     eq(other: this | null): bool {
         if (other === null) return false;
-        return this.val == other.val;
+        return this._val == other._val;
     }
 
     @inline
     @operator("!=")
     notEq(other: this | null): bool {
         if (other === null) return false;
-        return this.val != other.val;
+        return this._val != other._val;
     }
 
     @inline
     @operator(">")
     gt(other: this): bool {
-        return this.val > other.val;
+        return this._val > other._val;
     }
 
     @inline
     @operator(">=")
     ge(other: this): bool {
-        return this.val >= other.val;
+        return this._val >= other._val;
     }
 
     @inline
     @operator("<")
     lt(other: this): bool {
-        return this.val < other.val;
+        return this._val < other._val;
     }
 
     @inline
     @operator("<=")
     le(other: this): bool {
-        return this.val <= other.val;
+        return this._val <= other._val;
     }
 
     @inline
     @operator(">>")
     shr(other: this): this {
-        return Box.from<T>(this.val >> other.val);
+        return Box.from<T>(this._val >> other._val);
     }
 
     @inline
     @operator(">>>")
     shr_u(other: this): this {
-        return Box.from<T>(this.val >>> other.val);
+        return Box.from<T>(this._val >>> other._val);
     }
 
     @inline
     @operator("<<")
     shl(other: this): this {
-        return Box.from<T>(this.val << other.val);
+        return Box.from<T>(this._val << other._val);
     }
 
     @inline
     @operator("&")
     and(other: this): this {
-        return Box.from<T>(this.val & other.val);
+        return Box.from<T>(this._val & other._val);
     }
 
     @inline
     @operator("|")
     or(other: this): this {
-        return Box.from<T>(this.val | other.val);
+        return Box.from<T>(this._val | other._val);
     }
 
     @inline
     @operator("^")
     xor(other: this): this {
-        return Box.from<T>(this.val ^ other.val);
+        return Box.from<T>(this._val ^ other._val);
     }
 
     @inline
     @operator("+")
     add(other: this): this {
-        return Box.from<T>(this.val + other.val);
+        return Box.from<T>(this._val + other._val);
     }
 
     @inline
     @operator("-")
     sub(other: this): this {
-        return Box.from<T>(this.val - other.val);
+        return Box.from<T>(this._val - other._val);
     }
 
     @inline
     @operator("*")
     mul(other: this): this {
-        return Box.from<T>(this.val * other.val);
+        return Box.from<T>(this._val * other._val);
     }
 
     @inline
     @operator("/")
     div(other: this): this {
-        return Box.from<T>(this.val / other.val);
+        return Box.from<T>(this._val / other._val);
     }
 
     @inline
     @operator("**")
     pow(other: this): this {
-        return Box.from<T>(this.val ** other.val);
+        return Box.from<T>(this._val ** other._val);
     }
 
     @inline
     @operator("%")
     rem(other: this): this {
-        return Box.from<T>(this.val % other.val);
+        return Box.from<T>(this._val % other._val);
     }
 
     @inline
     @operator.prefix("!")
     isEmpty(): bool {
-        return !this.val;
+        return !this._val;
     }
 
     @inline
     @operator.prefix("~")
     not(): this {
-        return Box.from<T>(~this.val);
+        return Box.from<T>(~this._val);
     }
 
     @inline
     @operator.prefix("+")
     pos(): this {
-        return Box.from<T>(+this.val);
+        return Box.from<T>(+this._val);
     }
 
     @inline
     @operator.prefix("-")
     neg(): this {
-        return Box.from<T>(-this.val);
+        return Box.from<T>(-this._val);
     }
 
     @operator.prefix("++")
     preInc(): this {
-        ++this.val;
+        ++this._val;
         return this;
     }
 
     @operator.prefix("--")
     preDec(): this {
-        --this.val;
+        --this._val;
         return this;
     }
 
