@@ -21,7 +21,9 @@
     "lint": "eslint .",
     "checks": "asc ./assembly --noEmit --measure",
     "test": "asp --verbose",
-    "test:summary": "asp --summary"
+    "test:summary": "asp --summary",
+    "changelog": "conventional-changelog -i CHANGELOG.md -s"
+
   },
   "devDependencies": {
     "@as-pect/assembly": "^6.1",
