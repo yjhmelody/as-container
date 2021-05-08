@@ -1,3 +1,9 @@
+## <small>0.5.2 (2021-05-08)</small>
+
+* fix(Box): fix pow for Box (#25) ([81a3e69](https://github.com/yjhmelody/as-container/commit/81a3e69)), closes [#25](https://github.com/yjhmelody/as-container/issues/25)
+
+
+
 ## <small>0.5.1 (2021-05-07)</small>
 
 * fix: use `this` for some return type (#23) ([5b84b4d](https://github.com/yjhmelody/as-container/commit/5b84b4d)), closes [#23](https://github.com/yjhmelody/as-container/issues/23)
