@@ -67,6 +67,48 @@ describe("Box", () => {
         expect(Box.from(p1) != Box.from(p2)).toStrictEqual(true);
     });
 
+    it("Box<i64>", () => {
+        let box = Box.from<i64>(2);
+        let box2 = Box.from<i64>(1);
+        let box3 = Box.from<i64>(0);
+        let box4 = Box.from<i64>(-1);
+
+        expect(box == box2).toStrictEqual(false);
+        expect(box != box2).toStrictEqual(true);
+
+        expect(box > box2).toStrictEqual(true);
+        expect(box >= box2).toStrictEqual(true);
+        expect(box < box2).toStrictEqual(false);
+        expect(box <= box2).toStrictEqual(false);
+
+        expect(box >> box2).toStrictEqual(Box.from<i64>(1));
+        expect(box >>> box2).toStrictEqual(Box.from<i64>(1));
+        expect(box << box2).toStrictEqual(Box.from<i64>(4));
+        expect(box & box2).toStrictEqual(Box.from<i64>(0));
+        expect(box | box2).toStrictEqual(Box.from<i64>(3));
+        expect(box ^ box2).toStrictEqual(Box.from<i64>(3));
+
+        expect(box + box2).toStrictEqual(Box.from<i64>(3));
+        expect(box - box2).toStrictEqual(Box.from<i64>(1));
+        expect(box * box2).toStrictEqual(Box.from<i64>(2));
+        expect(box / box2).toStrictEqual(Box.from<i64>(2));
+        expect(box ** box2).toStrictEqual(Box.from<i64>(2));
+        expect(box % box2).toStrictEqual(Box.from<i64>(0));
+
+        expect(!box).toStrictEqual(false);
+        expect(!box3).toStrictEqual(true);
+        expect(~box).toStrictEqual(Box.from<i64>(~2));
+        expect(+box4).toStrictEqual(Box.from<i64>(-1));
+        expect(-box4).toStrictEqual(Box.from<i64>(1));
+
+        expect(box++).toStrictEqual(Box.from<i64>(2));
+        expect(box).toStrictEqual(Box.from<i64>(3));
+        expect(++box2).toStrictEqual(Box.from<i64>(2));
+        expect(box3--).toStrictEqual(Box.from<i64>(0));
+        expect(box3).toStrictEqual(Box.from<i64>(-1));
+        expect(--box4).toStrictEqual(Box.from<i64>(-2));
+    });
+
     it("Box<i32>", () => {
         let box = Box.from(2);
         let box2 = Box.from(1);
@@ -107,6 +149,86 @@ describe("Box", () => {
         expect(box3--).toStrictEqual(Box.from(0));
         expect(box3).toStrictEqual(Box.from(-1));
         expect(--box4).toStrictEqual(Box.from(-2));
+    });
+
+    it("Box<i8>", () => {
+        let box = Box.from<i8>(2);
+        let box2 = Box.from<i8>(1);
+        let box3 = Box.from<i8>(0);
+        let box4 = Box.from<i8>(-1);
+
+        expect(box == box2).toStrictEqual(false);
+        expect(box != box2).toStrictEqual(true);
+
+        expect(box > box2).toStrictEqual(true);
+        expect(box >= box2).toStrictEqual(true);
+        expect(box < box2).toStrictEqual(false);
+        expect(box <= box2).toStrictEqual(false);
+
+        expect(box >> box2).toStrictEqual(Box.from<i8>(1));
+        expect(box >>> box2).toStrictEqual(Box.from<i8>(1));
+        expect(box << box2).toStrictEqual(Box.from<i8>(4));
+        expect(box & box2).toStrictEqual(Box.from<i8>(0));
+        expect(box | box2).toStrictEqual(Box.from<i8>(3));
+        expect(box ^ box2).toStrictEqual(Box.from<i8>(3));
+
+        expect(box + box2).toStrictEqual(Box.from<i8>(3));
+        expect(box - box2).toStrictEqual(Box.from<i8>(1));
+        expect(box * box2).toStrictEqual(Box.from<i8>(2));
+        expect(box / box2).toStrictEqual(Box.from<i8>(2));
+        expect(box ** box2).toStrictEqual(Box.from<i8>(2));
+        expect(box % box2).toStrictEqual(Box.from<i8>(0));
+
+        expect(!box).toStrictEqual(false);
+        expect(!box3).toStrictEqual(true);
+        expect(~box).toStrictEqual(Box.from<i8>(~2));
+        expect(+box4).toStrictEqual(Box.from<i8>(-1));
+        expect(-box4).toStrictEqual(Box.from<i8>(1));
+
+        expect(box++).toStrictEqual(Box.from<i8>(2));
+        expect(box).toStrictEqual(Box.from<i8>(3));
+        expect(++box2).toStrictEqual(Box.from<i8>(2));
+        expect(box3--).toStrictEqual(Box.from<i8>(0));
+        expect(box3).toStrictEqual(Box.from<i8>(-1));
+        expect(--box4).toStrictEqual(Box.from<i8>(-2));
+    });
+
+    it("Box<u8>", () => {
+        let box = Box.from<u8>(2);
+        let box2 = Box.from<u8>(1);
+        let box3 = Box.from<u8>(0);
+
+        expect(box == box2).toStrictEqual(false);
+        expect(box != box2).toStrictEqual(true);
+
+        expect(box > box2).toStrictEqual(true);
+        expect(box >= box2).toStrictEqual(true);
+        expect(box < box2).toStrictEqual(false);
+        expect(box <= box2).toStrictEqual(false);
+
+        expect(box >> box2).toStrictEqual(Box.from<u8>(1));
+        expect(box >>> box2).toStrictEqual(Box.from<u8>(1));
+        expect(box << box2).toStrictEqual(Box.from<u8>(4));
+        expect(box & box2).toStrictEqual(Box.from<u8>(0));
+        expect(box | box2).toStrictEqual(Box.from<u8>(3));
+        expect(box ^ box2).toStrictEqual(Box.from<u8>(3));
+
+        expect(box + box2).toStrictEqual(Box.from<u8>(3));
+        expect(box - box2).toStrictEqual(Box.from<u8>(1));
+        expect(box * box2).toStrictEqual(Box.from<u8>(2));
+        expect(box / box2).toStrictEqual(Box.from<u8>(2));
+        expect(box ** box2).toStrictEqual(Box.from<u8>(2));
+        expect(box % box2).toStrictEqual(Box.from<u8>(0));
+
+        expect(!box).toStrictEqual(false);
+        expect(!box3).toStrictEqual(true);
+        expect(~box).toStrictEqual(Box.from<u8>(~2));
+
+        expect(box++).toStrictEqual(Box.from<u8>(2));
+        expect(box).toStrictEqual(Box.from<u8>(3));
+        expect(++box2).toStrictEqual(Box.from<u8>(2));
+        expect(box3--).toStrictEqual(Box.from<u8>(0));
+        expect(box3).toStrictEqual(Box.from<u8>(255));
     });
 
     it("Box<string>", () => {
