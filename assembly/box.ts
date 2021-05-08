@@ -170,7 +170,7 @@ export class Box<T> {
     @operator("**")
     pow(other: this): this {
         // @ts-ignore
-        return instantiate<this>(this._val ** other._val);
+        return instantiate<this>((this._val ** other._val) as T);
     }
 
     @inline
