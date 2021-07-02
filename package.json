@@ -29,7 +29,7 @@
     "@as-pect/assembly": "^6.1",
     "@as-pect/cli": "^6.1",
     "@as-pect/core": "^6.1",
-    "@typescript-eslint/parser": "4.26",
+    "@typescript-eslint/parser": "4.28",
     "@typescript-eslint/eslint-plugin": "4.26",
     "assemblyscript": "^0.18",
     "eslint": "7.27",
