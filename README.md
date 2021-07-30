@@ -6,6 +6,8 @@
 
 as-container provides some utils such as `Option` and `Result` inspired by Rust for other people to use.
 
+## APIs
+
 ### Box
 
 Box is used to wrap non-nullable(or primitive) value such as i32. Box offers all operator overloads to call the inner type operator.
@@ -53,6 +55,6 @@ More examples can be found in [unit tests](./assembly/__tests__/primitive/result
 
 `as-container` offers two versions of Result/Option. They provide the same API, but different implementations
 
-The default version can handle any type including primitive type. But because the basic types need to be encapsulated by reference types, the reference type itself has a layer of reference overhead.
+The default version can handle any type including primitive type. But because the primitive types need one more byte to record state, it may take more overhead.
 
 If you always use reference types as Option/Result parameters and need better performance, then you can use the type with the same name under `as-container/reference`.
