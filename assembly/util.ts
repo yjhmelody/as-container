@@ -1,14 +1,18 @@
+// @ts-ignore
 @inline
+@unsafe
 export function instantiateZero<T>(): T {
-    let t: T;
-    if (isFloat(t)) {
+    if (isFloat<T>()) {
+        // @ts-ignore
         return 0;
-    } else if (isInteger(t)) {
+    } else if (isInteger<T>()) {
+        // @ts-ignore
         return 0;
-    } else if (isBoolean(t)) {
+    } else if (isBoolean<T>()) {
+        // @ts-ignore
         return false;
-    } else if (isNullable(t)) {
-        return null;
+    } else if (isReference<T>()) {
+        return changetype<T>(0);
     }
     return instantiate<T>();
 }
