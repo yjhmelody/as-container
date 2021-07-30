@@ -7,8 +7,9 @@ class Foo {
 
 describe("PrimitiveResult", () => {
     it("offsetof", () => {
-        expect(offsetof<Result<i32, i8>>()).toBe(8);
-        expect(offsetof<Result<string, u64>>()).toBe(8);
+        expect(offsetof<Result<i32, i8>>()).toBe(6);
+        expect(offsetof<Result<string, u64>>()).toBe(17);
+        expect(offsetof<Result<string, u32>>()).toBe(9);
     });
 
     it("clone", () => {
@@ -121,9 +122,7 @@ describe("PrimitiveResult", () => {
     it("flatMap, andThen", () => {
         const x = Result.Ok<string, string>("ok");
         expect(
-            x
-                .andThen<string>((s) => Result.Ok<string, string>(s + s))
-                .unwrap()
+            x.andThen<string>((s) => Result.Ok<string, string>(s + s)).unwrap()
         ).toBe("okok");
 
         const x2 = Result.Err<string, string>("err");
