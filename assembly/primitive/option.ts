@@ -1,6 +1,6 @@
 import { MapFn, RecoveryFn } from "../shared";
 import { Optionable } from "../optionable";
-import { Box } from "../box";
+import { instantiateZero } from "../util";
 
 export type FlatMapFn<T, U> = MapFn<T, Option<U>>;
 
@@ -8,17 +8,19 @@ export type FlatMapFn<T, U> = MapFn<T, Option<U>>;
  * Type Option represents an optional value: every Option is either Some and contains a value,
  * or None, and does not.
  *
- * The Option version can wrap the primitive and reference type, but it will take up some more bytes and increase reference overhead.
+ * The Option version can wrap both the primitive and reference type, but it will take up some more bytes and increase overhead.
  */
 export class Option<T> implements Optionable<T> {
+    // @ts-ignore
+    @unsafe
     constructor(
-        protected readonly _val: Box<T> | null = null,
+        protected readonly _val: T = instantiateZero<T>(),
         protected _isNone: bool = true
     ) {}
 
     @inline
     static Some<T>(val: T): Option<T> {
-        return new Option<T>(Box.from(val), false);
+        return new Option<T>(val, false);
     }
 
     @inline
@@ -49,13 +51,13 @@ export class Option<T> implements Optionable<T> {
     @inline
     expect(msg: string): T {
         assert(this.isSome, msg);
-        return this._val!.unwrap();
+        return this._val;
     }
 
     @inline
     unwrapOr(def: T): T {
         if (this.isSome) {
-            return this._val!.unwrap();
+            return this._val;
         }
         return def;
     }
@@ -63,7 +65,7 @@ export class Option<T> implements Optionable<T> {
     @inline
     unwrapOrElse(fn: RecoveryFn<T>): T {
         if (this.isSome) {
-            return this._val!.unwrap();
+            return this._val;
         }
         return fn();
     }
@@ -72,28 +74,28 @@ export class Option<T> implements Optionable<T> {
         if (this.isNone) {
             return Option.None<U>();
         }
-        return Option.Some(fn(this._val!.unwrap()));
+        return Option.Some(fn(this._val));
     }
 
     mapOr<U>(def: U, fn: MapFn<T, U>): U {
         if (this.isNone) {
             return def;
         }
-        return fn(this._val!.unwrap());
+        return fn(this._val);
     }
 
     mapOrElse<U>(defFn: RecoveryFn<U>, fn: MapFn<T, U>): U {
         if (this.isNone) {
             return defFn();
         }
-        return fn(this._val!.unwrap());
+        return fn(this._val);
     }
 
     flatMap<U>(fn: FlatMapFn<T, U>): Option<U> {
         if (this.isNone) {
             return Option.None<U>();
         }
-        return fn(this._val!.unwrap()) as Option<U>;
+        return fn(this._val) as Option<U>;
     }
 
     and<U>(val: Option<U>): Option<U> {
@@ -110,14 +112,14 @@ export class Option<T> implements Optionable<T> {
 
     or(def: Option<T>): Option<T> {
         if (this.isSome) {
-            return Option.Some<T>(this._val!.unwrap());
+            return Option.Some<T>(this._val);
         }
         return def;
     }
 
     orElse(defFn: () => Option<T>): Option<T> {
         if (this.isSome) {
-            return Option.Some<T>(this._val!.unwrap());
+            return Option.Some<T>(this._val);
         }
         return defFn();
     }
@@ -128,7 +130,7 @@ export class Option<T> implements Optionable<T> {
         if (this.isNone && other.isNone) {
             return true;
         } else if (this.isSome && other.isSome) {
-            return this._val!.unwrap() == other._val!.unwrap();
+            return this._val == other._val;
         } else {
             return false;
         }

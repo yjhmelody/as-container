@@ -1,16 +1,34 @@
 import { Box } from "../box";
 
+class A {
+    @operator("==")
+    eq(other: this): bool {
+        return true;
+    }
+}
+class B extends A {
+    b(): void { }
+
+    @operator("==")
+    eq(other: this): bool {
+        return super.eq(other) && false;
+    }
+}
+
 describe("Box", () => {
     it("from, new", () => {
         const box = Box.from<i32>(1);
         const box2 = Box.new(1);
         expect(box).toStrictEqual(box2);
+        expect(new A() == new B()).toBe(true);
+        expect(new B() == new B()).toBe(false);
     });
 
     it("clone", () => {
         let b1 = Box.from(1);
         const b2 = b1.clone();
         expect(b1 == b2).toBe(true);
+        // @ts-ignore
         b1++;
         expect(b1 == b2).toBe(false);
     });
@@ -81,31 +99,51 @@ describe("Box", () => {
         expect(box < box2).toStrictEqual(false);
         expect(box <= box2).toStrictEqual(false);
 
+        // @ts-ignore
         expect(box >> box2).toStrictEqual(Box.from<i64>(1));
+        // @ts-ignore
         expect(box >>> box2).toStrictEqual(Box.from<i64>(1));
+        // @ts-ignore
         expect(box << box2).toStrictEqual(Box.from<i64>(4));
+        // @ts-ignore
         expect(box & box2).toStrictEqual(Box.from<i64>(0));
+        // @ts-ignore
         expect(box | box2).toStrictEqual(Box.from<i64>(3));
+        // @ts-ignore
         expect(box ^ box2).toStrictEqual(Box.from<i64>(3));
 
+        // @ts-ignore
         expect(box + box2).toStrictEqual(Box.from<i64>(3));
+        // @ts-ignore
         expect(box - box2).toStrictEqual(Box.from<i64>(1));
+        // @ts-ignore
         expect(box * box2).toStrictEqual(Box.from<i64>(2));
+        // @ts-ignore
         expect(box / box2).toStrictEqual(Box.from<i64>(2));
+        // @ts-ignore
         expect(box ** box2).toStrictEqual(Box.from<i64>(2));
+        // @ts-ignore
         expect(box % box2).toStrictEqual(Box.from<i64>(0));
 
         expect(!box).toStrictEqual(false);
         expect(!box3).toStrictEqual(true);
+        // @ts-ignore
         expect(~box).toStrictEqual(Box.from<i64>(~2));
+        // @ts-ignore
         expect(+box4).toStrictEqual(Box.from<i64>(-1));
+        // @ts-ignore
         expect(-box4).toStrictEqual(Box.from<i64>(1));
+        // @ts-ignore
 
+        // @ts-ignore
         expect(box++).toStrictEqual(Box.from<i64>(2));
         expect(box).toStrictEqual(Box.from<i64>(3));
+        // @ts-ignore
         expect(++box2).toStrictEqual(Box.from<i64>(2));
+        // @ts-ignore
         expect(box3--).toStrictEqual(Box.from<i64>(0));
         expect(box3).toStrictEqual(Box.from<i64>(-1));
+        // @ts-ignore
         expect(--box4).toStrictEqual(Box.from<i64>(-2));
     });
 
@@ -123,31 +161,50 @@ describe("Box", () => {
         expect(box < box2).toStrictEqual(false);
         expect(box <= box2).toStrictEqual(false);
 
+        // @ts-ignore
         expect(box >> box2).toStrictEqual(Box.from(1));
+        // @ts-ignore
         expect(box >>> box2).toStrictEqual(Box.from(1));
+        // @ts-ignore
         expect(box << box2).toStrictEqual(Box.from(4));
+        // @ts-ignore
         expect(box & box2).toStrictEqual(Box.from(0));
+        // @ts-ignore
         expect(box | box2).toStrictEqual(Box.from(3));
+        // @ts-ignore
         expect(box ^ box2).toStrictEqual(Box.from(3));
 
+        // @ts-ignore
         expect(box + box2).toStrictEqual(Box.from(3));
+        // @ts-ignore
         expect(box - box2).toStrictEqual(Box.from(1));
+        // @ts-ignore
         expect(box * box2).toStrictEqual(Box.from(2));
+        // @ts-ignore
         expect(box / box2).toStrictEqual(Box.from(2));
+        // @ts-ignore
         expect(box ** box2).toStrictEqual(Box.from(2));
+        // @ts-ignore
         expect(box % box2).toStrictEqual(Box.from(0));
 
         expect(!box).toStrictEqual(false);
         expect(!box3).toStrictEqual(true);
+        // @ts-ignore
         expect(~box).toStrictEqual(Box.from(~2));
+        // @ts-ignore
         expect(+box4).toStrictEqual(Box.from(-1));
+        // @ts-ignore
         expect(-box4).toStrictEqual(Box.from(1));
 
+        // @ts-ignore
         expect(box++).toStrictEqual(Box.from(2));
         expect(box).toStrictEqual(Box.from(3));
+        // @ts-ignore
         expect(++box2).toStrictEqual(Box.from(2));
+        // @ts-ignore
         expect(box3--).toStrictEqual(Box.from(0));
         expect(box3).toStrictEqual(Box.from(-1));
+        // @ts-ignore
         expect(--box4).toStrictEqual(Box.from(-2));
     });
 
@@ -165,31 +222,52 @@ describe("Box", () => {
         expect(box < box2).toStrictEqual(false);
         expect(box <= box2).toStrictEqual(false);
 
+        // @ts-ignore
         expect(box >> box2).toStrictEqual(Box.from<i8>(1));
+        // @ts-ignore
         expect(box >>> box2).toStrictEqual(Box.from<i8>(1));
+        // @ts-ignore
         expect(box << box2).toStrictEqual(Box.from<i8>(4));
+        // @ts-ignore
         expect(box & box2).toStrictEqual(Box.from<i8>(0));
+        // @ts-ignore
         expect(box | box2).toStrictEqual(Box.from<i8>(3));
+        // @ts-ignore
         expect(box ^ box2).toStrictEqual(Box.from<i8>(3));
 
+        // @ts-ignore
         expect(box + box2).toStrictEqual(Box.from<i8>(3));
+        // @ts-ignore
         expect(box - box2).toStrictEqual(Box.from<i8>(1));
+        // @ts-ignore
         expect(box * box2).toStrictEqual(Box.from<i8>(2));
+        // @ts-ignore
         expect(box / box2).toStrictEqual(Box.from<i8>(2));
+        // @ts-ignore
+        // @ts-ignore
         expect(box ** box2).toStrictEqual(Box.from<i8>(2));
+        // @ts-ignore
         expect(box % box2).toStrictEqual(Box.from<i8>(0));
 
         expect(!box).toStrictEqual(false);
         expect(!box3).toStrictEqual(true);
+        // @ts-ignore
         expect(~box).toStrictEqual(Box.from<i8>(~2));
+        // @ts-ignore
         expect(+box4).toStrictEqual(Box.from<i8>(-1));
+        // @ts-ignore
         expect(-box4).toStrictEqual(Box.from<i8>(1));
 
+        // @ts-ignore
         expect(box++).toStrictEqual(Box.from<i8>(2));
         expect(box).toStrictEqual(Box.from<i8>(3));
+        // @ts-ignore
         expect(++box2).toStrictEqual(Box.from<i8>(2));
+        // @ts-ignore
         expect(box3--).toStrictEqual(Box.from<i8>(0));
+        // @ts-ignore
         expect(box3).toStrictEqual(Box.from<i8>(-1));
+        // @ts-ignore
         expect(--box4).toStrictEqual(Box.from<i8>(-2));
     });
 
@@ -206,27 +284,43 @@ describe("Box", () => {
         expect(box < box2).toStrictEqual(false);
         expect(box <= box2).toStrictEqual(false);
 
+        // @ts-ignore
         expect(box >> box2).toStrictEqual(Box.from<u8>(1));
+        // @ts-ignore
         expect(box >>> box2).toStrictEqual(Box.from<u8>(1));
+        // @ts-ignore
         expect(box << box2).toStrictEqual(Box.from<u8>(4));
+        // @ts-ignore
         expect(box & box2).toStrictEqual(Box.from<u8>(0));
+        // @ts-ignore
         expect(box | box2).toStrictEqual(Box.from<u8>(3));
+        // @ts-ignore
         expect(box ^ box2).toStrictEqual(Box.from<u8>(3));
 
+        // @ts-ignore
         expect(box + box2).toStrictEqual(Box.from<u8>(3));
+        // @ts-ignore
         expect(box - box2).toStrictEqual(Box.from<u8>(1));
+        // @ts-ignore
         expect(box * box2).toStrictEqual(Box.from<u8>(2));
+        // @ts-ignore
         expect(box / box2).toStrictEqual(Box.from<u8>(2));
+        // @ts-ignore
         expect(box ** box2).toStrictEqual(Box.from<u8>(2));
+        // @ts-ignore
         expect(box % box2).toStrictEqual(Box.from<u8>(0));
 
         expect(!box).toStrictEqual(false);
         expect(!box3).toStrictEqual(true);
+        // @ts-ignore
         expect(~box).toStrictEqual(Box.from<u8>(~2));
 
+        // @ts-ignore
         expect(box++).toStrictEqual(Box.from<u8>(2));
         expect(box).toStrictEqual(Box.from<u8>(3));
+        // @ts-ignore
         expect(++box2).toStrictEqual(Box.from<u8>(2));
+        // @ts-ignore
         expect(box3--).toStrictEqual(Box.from<u8>(0));
         expect(box3).toStrictEqual(Box.from<u8>(255));
     });
@@ -243,8 +337,9 @@ describe("Box", () => {
         expect(box < box2).toStrictEqual(false);
         expect(box <= box2).toStrictEqual(false);
 
+        // @ts-ignore
         expect(box + box2).toStrictEqual(Box.from("21"));
     });
 });
 
-class Person {}
+class Person { }

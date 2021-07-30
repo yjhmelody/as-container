@@ -1,7 +1,7 @@
 import { Option } from "./option";
 import { MapFn, RecoveryWithErrorFn } from "../shared";
 import { Resultable } from "../resultable";
-import { Box } from "../box";
+import { instantiateZero } from "../util";
 
 export type FlatMapOkFn<O, U, E> = MapFn<O, Result<U, E>>;
 export type FlatMapErrFn<O, E, F> = MapFn<E, Result<O, F>>;
@@ -11,37 +11,48 @@ export type FlatMapErrFn<O, E, F> = MapFn<E, Result<O, F>>;
  * It is an enum with the variants, Ok(T), representing success and containing a value,
  * and Err(E), representing error and containing an error value.
  *
- * The Result version can wrap the primitive and reference type, but it will increase reference overhead
+ * The Result version can both wrap the primitive and reference type, but it will increase reference overhead
  */
 export class Result<O, E> implements Resultable<O, E> {
+    protected readonly _ok: O;
+    protected readonly _err: E;
+    // Note: make _isOk in the last is good for layout when err size is less than ok size.
+    protected readonly _isOk: bool;
+    // @ts-ignore
+    @unsafe
     private constructor(
-        protected readonly _ok: Box<O> | null,
-        protected readonly _err: Box<E> | null
-    ) {}
+        isOk: bool,
+        ok: O = instantiateZero<O>(),
+        err: E = instantiateZero<E>()
+    ) {
+        this._isOk  = isOk;
+        this._ok  = ok;
+        this._err  = err;
+    }
 
     @inline
     static Ok<O, E>(ok: O): Result<O, E> {
-        return new Result<O, E>(Box.from<O>(ok), null);
+        return new Result<O, E>(true, ok);
     }
 
     @inline
     static Err<O, E>(err: E): Result<O, E> {
-        return new Result<O, E>(null, Box.from<E>(err));
+        return new Result<O, E>(false, instantiateZero<O>(), err);
     }
 
     @inline
     get isOk(): bool {
-        return this._err === null;
+        return this._isOk;
     }
 
     @inline
     get isErr(): bool {
-        return this._ok === null;
+        return !this._isOk;
     }
 
     @inline
     clone(): this {
-        return instantiate<this>(this._ok, this._err);
+        return instantiate<this>(this._isOk, this._ok, this._err);
     }
 
     ok(): Option<O> {
@@ -147,13 +158,13 @@ export class Result<O, E> implements Resultable<O, E> {
     @inline
     expect(message: string): O {
         assert(this.isOk, message);
-        return this._ok!.unwrap() as O;
+        return this._ok;
     }
 
     @inline
     expectErr(message: string): E {
         assert(this.isErr, message);
-        return this._err!.unwrap() as E;
+        return this._err;
     }
 
     @inline
