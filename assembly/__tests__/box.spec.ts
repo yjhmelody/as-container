@@ -7,11 +7,11 @@ class A {
     }
 }
 class B extends A {
-    b(): void { }
+    b(): void {}
 
     @operator("==")
     eq(other: this): bool {
-        return super.eq(other) && false;
+        return false;
     }
 }
 
@@ -20,8 +20,6 @@ describe("Box", () => {
         const box = Box.from<i32>(1);
         const box2 = Box.new(1);
         expect(box).toStrictEqual(box2);
-        expect(new A() == new B()).toBe(true);
-        expect(new B() == new B()).toBe(false);
     });
 
     it("clone", () => {
@@ -62,6 +60,12 @@ describe("Box", () => {
         const p2 = new Person();
 
         expect(Box.from(p1) != Box.from(p2)).toBe(true);
+
+        expect(new A() == new B()).toBe(true);
+        expect(new B() == new B()).toBe(false);
+        expect(Box.from<A>(new A()) == Box.from<A>(new B())).toBe(true);
+        expect(Box.from(new B()) == Box.from(new B())).toBe(false);
+        expect(Box.from<A>(new B()) == Box.from<A>(new B())).toBe(false);
     });
 
     it("notEq", () => {
@@ -342,4 +346,4 @@ describe("Box", () => {
     });
 });
 
-class Person { }
+class Person {}
