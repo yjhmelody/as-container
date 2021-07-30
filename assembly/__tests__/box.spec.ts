@@ -7,13 +7,13 @@ class A {
     }
 }
 class B extends A {
-    b(): void {}
-
     @operator("==")
     eq(other: this): bool {
         return false;
     }
 }
+
+class Person {}
 
 describe("Box", () => {
     it("from, new", () => {
@@ -346,4 +346,3 @@ describe("Box", () => {
     });
 });
 
-class Person {}
