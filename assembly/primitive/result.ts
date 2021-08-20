@@ -14,10 +14,10 @@ export type FlatMapErrFn<O, E, F> = MapFn<E, Result<O, F>>;
  * The Result version can both wrap the primitive and reference type, but it will increase reference overhead
  */
 export class Result<O, E> implements Resultable<O, E> {
-    protected readonly _ok: O;
-    protected readonly _err: E;
+    protected _ok: O;
+    protected _err: E;
     // Note: make _isOk in the last is good for layout when err size is less than ok size.
-    protected readonly _isOk: bool;
+    protected _isOk: bool;
     // @ts-ignore
     @unsafe
     private constructor(
