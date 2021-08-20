@@ -14,7 +14,7 @@ export class Option<T> implements Optionable<T> {
     // @ts-ignore
     @unsafe
     constructor(
-        protected readonly _val: T = instantiateZero<T>(),
+        protected _val: T = instantiateZero<T>(),
         protected _isNone: bool = true
     ) {}
 
