@@ -1,3 +1,10 @@
+## <small>0.6.1 (2021-08-20)</small>
+
+* feat: remove readonly for protect fields for option/result (#38) ([304d634](https://github.com/yjhmelody/as-container/commit/304d634)), closes [#38](https://github.com/yjhmelody/as-container/issues/38)
+* tests: fix box test (#37) ([775c6b0](https://github.com/yjhmelody/as-container/commit/775c6b0)), closes [#37](https://github.com/yjhmelody/as-container/issues/37)
+
+
+
 ## 0.6.0 (2021-07-30)
 
 * feat(primitive): improve result/option layout (#35) ([1844637](https://github.com/yjhmelody/as-container/commit/1844637)), closes [#35](https://github.com/yjhmelody/as-container/issues/35)
