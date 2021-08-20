@@ -1,3 +1,27 @@
+## <small>0.6.1 (2021-08-20)</small>
+
+* feat: remove readonly for protect fields for option/result (#38) ([304d634](https://github.com/yjhmelody/as-container/commit/304d634)), closes [#38](https://github.com/yjhmelody/as-container/issues/38)
+* tests: fix box test (#37) ([775c6b0](https://github.com/yjhmelody/as-container/commit/775c6b0)), closes [#37](https://github.com/yjhmelody/as-container/issues/37)
+
+
+
+## <small>0.6.1 (2021-08-20)</small>
+
+* feat: remove readonly for protect fields for option/result (#38) ([304d634](https://github.com/yjhmelody/as-container/commit/304d634)), closes [#38](https://github.com/yjhmelody/as-container/issues/38)
+* feat(primitive): improve result/option layout (#35) ([1844637](https://github.com/yjhmelody/as-container/commit/1844637)), closes [#35](https://github.com/yjhmelody/as-container/issues/35)
+* tests: fix box test (#37) ([775c6b0](https://github.com/yjhmelody/as-container/commit/775c6b0)), closes [#37](https://github.com/yjhmelody/as-container/issues/37)
+* v0.6.0 (#36) ([d097d63](https://github.com/yjhmelody/as-container/commit/d097d63)), closes [#36](https://github.com/yjhmelody/as-container/issues/36)
+* chore(deps-dev): bump @typescript-eslint/eslint-plugin (#28) ([23f0c62](https://github.com/yjhmelody/as-container/commit/23f0c62)), closes [#28](https://github.com/yjhmelody/as-container/issues/28)
+* chore(deps-dev): bump @typescript-eslint/eslint-plugin (#33) ([7032070](https://github.com/yjhmelody/as-container/commit/7032070)), closes [#33](https://github.com/yjhmelody/as-container/issues/33)
+* chore(deps-dev): bump @typescript-eslint/parser from 4.22.1 to 4.26.0 (#27) ([c9cfcba](https://github.com/yjhmelody/as-container/commit/c9cfcba)), closes [#27](https://github.com/yjhmelody/as-container/issues/27)
+* chore(deps-dev): bump @typescript-eslint/parser from 4.26.1 to 4.28.1 (#34) ([e4e1559](https://github.com/yjhmelody/as-container/commit/e4e1559)), closes [#34](https://github.com/yjhmelody/as-container/issues/34)
+* chore(deps-dev): bump assemblyscript from 0.18.32 to 0.19.5 (#31) ([0f796f0](https://github.com/yjhmelody/as-container/commit/0f796f0)), closes [#31](https://github.com/yjhmelody/as-container/issues/31)
+* chore(deps-dev): bump eslint from 7.25.0 to 7.27.0 (#30) ([625a0ed](https://github.com/yjhmelody/as-container/commit/625a0ed)), closes [#30](https://github.com/yjhmelody/as-container/issues/30)
+* chore(deps-dev): bump eslint from 7.27.0 to 7.29.0 (#32) ([05c4b38](https://github.com/yjhmelody/as-container/commit/05c4b38)), closes [#32](https://github.com/yjhmelody/as-container/issues/32)
+* chore(deps-dev): bump typescript from 4.2.4 to 4.3.2 (#29) ([e9228d6](https://github.com/yjhmelody/as-container/commit/e9228d6)), closes [#29](https://github.com/yjhmelody/as-container/issues/29)
+
+
+
 ## 0.6.0 (2021-07-30)
 
 * feat(primitive): improve result/option layout (#35) ([1844637](https://github.com/yjhmelody/as-container/commit/1844637)), closes [#35](https://github.com/yjhmelody/as-container/issues/35)
