@@ -147,7 +147,11 @@ export class Result<O, E> implements Resultable<O, E> {
 
     @inline
     expect(message: string): O {
-        assert(this._ok !== null, message);
+        if (isString<E>(this._err)) {
+            assert(this.isOk, message + "; " + this._err.toString());
+        } else {
+            assert(this.isOk, message);
+        }
         return this._ok as O;
     }
 
