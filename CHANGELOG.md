@@ -6,14 +6,6 @@
 
 
 
-## 0.7.0 (2023-02-07)
-
-* feat: expect throw err if string (#41) ([00fbdae](https://github.com/yjhmelody/as-container/commit/00fbdae)), closes [#41](https://github.com/yjhmelody/as-container/issues/41)
-* feat: update to Assemblyscript v0.25 (#43) ([0d5a698](https://github.com/yjhmelody/as-container/commit/0d5a698)), closes [#43](https://github.com/yjhmelody/as-container/issues/43)
-* ci: add publish and auto merge (#42) ([18e9342](https://github.com/yjhmelody/as-container/commit/18e9342)), closes [#42](https://github.com/yjhmelody/as-container/issues/42)
-
-
-
 ## <small>0.6.1 (2021-08-20)</small>
 
 * feat: remove readonly for protect fields for option/result (#38) ([304d634](https://github.com/yjhmelody/as-container/commit/304d634)), closes [#38](https://github.com/yjhmelody/as-container/issues/38)
