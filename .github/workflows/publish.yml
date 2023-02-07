@@ -4,10 +4,10 @@ on:
   push:
     # match version tag
     tags:
-      - 'v*'
+      - 'v*.*.*'
     
 jobs:
-  build:
+  publish-package:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -19,6 +19,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           cache: 'yarn'
       - run: yarn install --immutable
-      - run: npm publish
+      - name: Publish to NPM
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
