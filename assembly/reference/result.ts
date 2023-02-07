@@ -46,56 +46,56 @@ export class Result<O, E> implements Resultable<O, E> {
     }
 
     ok(): Option<O> {
-        if (this._ok !== null) {
+        if (this.isOk) {
             return Option.Some(this._ok as O);
         }
         return Option.None<O>();
     }
 
     err(): Option<E> {
-        if (this._err !== null) {
+        if (this.isErr) {
             return Option.Some(this._err as E);
         }
         return Option.None<E>();
     }
 
     map<U>(op: MapFn<O, U>): Result<U, E> {
-        if (this._ok !== null) {
+        if (this.isOk) {
             return Result.Ok<U, E>(op(this._ok as O));
         }
         return Result.Err<U, E>(this._err as E);
     }
 
     mapOr<U>(def: U, fn: MapFn<O, U>): U {
-        if (this._ok !== null) {
+        if (this.isOk) {
             return fn(this._ok as O);
         }
         return def;
     }
 
     mapOrElse<U>(defFn: RecoveryWithErrorFn<E, U>, fn: MapFn<O, U>): U {
-        if (this._ok !== null) {
+        if (this.isOk) {
             return fn(this._ok as O);
         }
         return defFn(this._err as E);
     }
 
     mapErr<F>(op: MapFn<E, F>): Result<O, F> {
-        if (this._err !== null) {
+        if (this.isErr) {
             return Result.Err<O, F>(op(this._err as E));
         }
         return Result.Ok<O, F>(this._ok as O);
     }
 
     and<U>(res: Result<U, E>): Result<U, E> {
-        if (this._ok !== null) {
+        if (this.isOk) {
             return res;
         }
         return Result.Err<U, E>(this._err as E);
     }
 
     andThen<U>(op: FlatMapOkFn<O, U, E>): Result<U, E> {
-        if (this._ok !== null) {
+        if (this.isOk) {
             return op(this._ok as O);
         }
         return Result.Err<U, E>(this._err as E);
@@ -107,7 +107,7 @@ export class Result<O, E> implements Resultable<O, E> {
     }
 
     or<F>(res: Result<O, F>): Result<O, F> {
-        if (this._err !== null) {
+        if (this.isErr) {
             return res;
         }
         return Result.Ok<O, F>(this._ok as O);
@@ -132,14 +132,14 @@ export class Result<O, E> implements Resultable<O, E> {
 
     @inline
     unwrapOr(optb: O): O {
-        if (this._ok !== null) {
+        if (this.isOk) {
             return this._ok as O;
         }
         return optb;
     }
 
     unwrapOrElse(op: RecoveryWithErrorFn<E, O>): O {
-        if (this._ok !== null) {
+        if (this.isOk) {
             return this._ok as O;
         }
         return op(this._err as E);
@@ -147,7 +147,7 @@ export class Result<O, E> implements Resultable<O, E> {
 
     @inline
     expect(message: string): O {
-        if (this._err !== null && isString<E>(this._err as E)) {
+        if (this.isErr && isString<E>(this._err as E)) {
             assert(this.isOk, message + "; " + (this._err as string).toString());
         } else {
             assert(this.isOk, message);
@@ -157,7 +157,7 @@ export class Result<O, E> implements Resultable<O, E> {
 
     @inline
     expectErr(message: string): E {
-        assert(this._err !== null, message);
+        assert(this.isErr, message);
         return this._err as E;
     }
 
