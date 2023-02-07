@@ -18,7 +18,7 @@ jobs:
           cache: 'yarn'
       - name: lint
         run: |
-          yarn install --immutable
+          yarn install
           yarn lint
 
   unit-test:
@@ -37,5 +37,5 @@ jobs:
           cache: 'yarn'
       - name: test
         run: |
-          yarn install --immutable
+          yarn install
           yarn test
