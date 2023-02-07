@@ -2,13 +2,13 @@ import { Box } from "../box";
 
 class A {
     @operator("==")
-    eq(other: this): bool {
+    eqA(_other: this | null): bool {
         return true;
     }
 }
 class B extends A {
     @operator("==")
-    eq(other: this): bool {
+    eqB(_other: this | null): bool {
         return false;
     }
 }
@@ -18,7 +18,7 @@ class Person {}
 describe("Box", () => {
     it("from, new", () => {
         const box = Box.from<i32>(1);
-        const box2 = Box.new(1);
+        const box2 = Box.new<i32>(1);
         expect(box).toStrictEqual(box2);
     });
 
@@ -61,11 +61,16 @@ describe("Box", () => {
 
         expect(Box.from(p1) != Box.from(p2)).toBe(true);
 
-        expect(new A() == new B()).toBe(true);
+        expect(changetype<B>(new A()) == new B()).toBe(false);
         expect(new B() == new B()).toBe(false);
+        // eqA
+        expect(Box.from(new A()) == Box.from(new A())).toBe(true);
+        // eqA
         expect(Box.from<A>(new A()) == Box.from<A>(new B())).toBe(true);
-        expect(Box.from(new B()) == Box.from(new B())).toBe(false);
-        expect(Box.from<A>(new B()) == Box.from<A>(new B())).toBe(false);
+        // eqB
+        expect(Box.from<B>(new B()) == Box.from(new B())).toBe(false);
+        // eqA
+        expect(Box.from<A>(new B()) == Box.from<A>(new B())).toBe(true);
     });
 
     it("notEq", () => {
@@ -74,8 +79,8 @@ describe("Box", () => {
         expect(box != box2).toStrictEqual(true);
         expect(box.notEq(box2)).toStrictEqual(true);
 
-        const box3 = Box.from("box");
-        const box4 = Box.from("box");
+        const box3 = Box.from<String>("box");
+        const box4 = Box.from<String>("box");
         expect(box3 != box4).toStrictEqual(false);
 
         const s = "box";
@@ -152,10 +157,10 @@ describe("Box", () => {
     });
 
     it("Box<i32>", () => {
-        let box = Box.from(2);
-        let box2 = Box.from(1);
-        let box3 = Box.from(0);
-        let box4 = Box.from(-1);
+        let box = Box.from<i32>(2);
+        let box2 = Box.from<i32>(1);
+        let box3 = Box.from<i32>(0);
+        let box4 = Box.from<i32>(-1);
 
         expect(box == box2).toStrictEqual(false);
         expect(box != box2).toStrictEqual(true);
@@ -330,8 +335,8 @@ describe("Box", () => {
     });
 
     it("Box<string>", () => {
-        const box = Box.from("2");
-        const box2 = Box.from("1");
+        const box = Box.from<String>("2");
+        const box2 = Box.from<String>("1");
 
         expect(box == box2).toStrictEqual(false);
         expect(box != box2).toStrictEqual(true);

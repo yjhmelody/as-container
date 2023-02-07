@@ -24,12 +24,20 @@ export class Option<T> implements Optionable<T> {
 
     @inline
     get isSome(): bool {
-        return this._val !== null;
+        if (this._val) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @inline
     get isNone(): bool {
-        return this._val === null;
+        if (this._val) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @inline
@@ -44,13 +52,15 @@ export class Option<T> implements Optionable<T> {
 
     @inline
     expect(msg: string): T {
-        assert(this._val !== null, msg);
+        if (this.isNone) {
+            assert(false, msg);
+        }
         return this._val as T;
     }
 
     @inline
     unwrapOr(def: T): T {
-        if (this._val !== null) {
+        if (this.isSome) {
             return this._val as T;
         }
         return def;
@@ -58,35 +68,35 @@ export class Option<T> implements Optionable<T> {
 
     @inline
     unwrapOrElse(fn: RecoveryFn<T>): T {
-        if (this._val !== null) {
+        if (this.isSome) {
             return this._val as T;
         }
         return fn();
     }
 
     map<U>(fn: MapFn<T, U>): Option<U> {
-        if (this._val === null) {
+        if (this.isNone) {
             return Option.None<U>();
         }
         return Option.Some(fn(this._val as T));
     }
 
     mapOr<U>(def: U, fn: MapFn<T, U>): U {
-        if (this._val === null) {
+        if (this.isNone) {
             return def;
         }
         return fn(this._val as T);
     }
 
     mapOrElse<U>(defFn: RecoveryFn<U>, fn: MapFn<T, U>): U {
-        if (this._val === null) {
+        if (this.isNone) {
             return defFn();
         }
         return fn(this._val as T);
     }
 
     flatMap<U>(fn: FlatMapFn<T, U>): Option<U> {
-        if (this._val === null) {
+        if (this.isNone) {
             return Option.None<U>();
         }
         return fn(this._val as T);
@@ -105,7 +115,7 @@ export class Option<T> implements Optionable<T> {
     }
 
     or(def: Option<T>): Option<T> {
-        if (this._val !== null) {
+        if (this.isSome) {
             return Option.Some<T>(this._val as T);
         }
         return def;

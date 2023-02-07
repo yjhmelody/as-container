@@ -60,15 +60,13 @@ export class Box<T> {
 
     @inline
     @operator("==")
-    eq(other: this | null): bool {
-        if (other === null) return false;
+    eq(other: this): bool {
         return this._val == other._val;
     }
 
     @inline
     @operator("!=")
-    notEq(other: this | null): bool {
-        if (other === null) return false;
+    notEq(other: this): bool {
         return this._val != other._val;
     }
 

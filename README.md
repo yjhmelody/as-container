@@ -53,7 +53,7 @@ More examples can be found in [unit tests](./assembly/__tests__/primitive/result
 
 ### Others
 
-`as-container` offers two versions of Result/Option. They provide the same API, but different implementations
+`as-container` offers two versions of Result/Option. They provide the same API, but different implementations.
 
 The default version can handle any type including primitive type. But because the primitive types need one more byte to record state, it may take more overhead.
 
