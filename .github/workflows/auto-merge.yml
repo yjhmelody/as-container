@@ -2,6 +2,7 @@ name: auto-merge
 
 on:
   pull_request:
+    branches: ["dependabot*"]
 
 jobs:
   auto-merge:
