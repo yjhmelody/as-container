@@ -33,7 +33,7 @@ jobs:
       - name: Create Release.txt
         run: |
           echo ${{ github.sha }} >> Release.txt
-          yarn changelog >> Release.txt
+          npm run changelog >> Release.txt
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
