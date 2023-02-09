@@ -23,7 +23,8 @@
     "checks": "asc ./assembly --noEmit --measure",
     "test": "asp --verbose",
     "test:summary": "asp --summary",
-    "changelog": "conventional-changelog -i CHANGELOG.md -s"
+    "update-changelog": "conventional-changelog -i CHANGELOG.md -s",
+    "changelog": "conventional-changelog"
   },
   "devDependencies": {
     "@as-pect/cli": "^8.0",
@@ -31,7 +32,8 @@
     "@typescript-eslint/parser": "^5.46",
     "assemblyscript": "^0.25",
     "eslint": "^8.29",
-    "typescript": "^4.9"
+    "typescript": "^4.9",
+    "conventional-changelog": "^3.0"
   },
   "files": [
     "assembly",

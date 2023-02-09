@@ -1,18 +1,14 @@
-name: Auto merge
-
+name: Auto-merge dependabot updates
 on:
   schedule:
     - cron: "0 11,18 * * *"
-  pull_request:
-    branches: ["dependabot*"]
-
 jobs:
-  auto-merge-dependabot:
+  test:
+    name: Auto-merge dependabot updates
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Merge PR from dependabot
-        uses: ahmadnassri/action-dependabot-auto-merge@v2
+      - uses: akheron/dependabot-cron-action@v1
         with:
-          target: minor
-          github-token: ${{ secrets.MY_TOKEN }}
+          token: ${{ secrets.MY_TOKEN }}
+          auto-merge: minor
+          merge-method: squash
