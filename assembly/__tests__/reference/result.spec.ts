@@ -118,35 +118,35 @@ describe("ReferenceResult", () => {
         const x2 = Result.Err<string, string>("err");
         expect(
             x2.andThen<string>((s) => Result.Ok<string, string>(s + s))
-        ).toStrictEqual(Result.Err<string, string>("err"));
+        ).toBe(Result.Err<string, string>("err"));
     });
 
     it("or", () => {
         const x = Result.Ok<string, string>("ok");
-        expect(x.or(Result.Ok<string, string>("or"))).toStrictEqual(
+        expect(x.or(Result.Ok<string, string>("or"))).toBe(
             Result.Ok<string, string>("ok")
         );
 
         const x2 = Result.Err<string, string>("err");
-        expect(x2.or(Result.Ok<string, string>("ok"))).toStrictEqual(
+        expect(x2.or(Result.Ok<string, string>("ok"))).toBe(
             Result.Ok<string, string>("ok")
         );
     });
 
     it("and", () => {
         const x = Result.Ok<string, string>("ok");
-        expect(x.and(Result.Ok<string, string>("ok2"))).toStrictEqual(
+        expect(x.and(Result.Ok<string, string>("ok2"))).toBe(
             Result.Ok<string, string>("ok2")
         );
-        expect(x.and(Result.Err<string, string>("err"))).toStrictEqual(
+        expect(x.and(Result.Err<string, string>("err"))).toBe(
             Result.Err<string, string>("err")
         );
 
         const x2 = Result.Err<string, string>("err");
-        expect(x2.and(Result.Ok<string, string>("ok"))).toStrictEqual(
+        expect(x2.and(Result.Ok<string, string>("ok"))).toBe(
             Result.Err<string, string>("err")
         );
-        expect(x2.and(Result.Err<string, string>("ok"))).toStrictEqual(
+        expect(x2.and(Result.Err<string, string>("ok"))).toBe(
             Result.Err<string, string>("err")
         );
     });
@@ -155,22 +155,22 @@ describe("ReferenceResult", () => {
         const x = Result.Ok<string, string>("ok");
         expect(
             x.orElse<string>(() => Result.Ok<string, string>("ok"))
-        ).toStrictEqual(Result.Ok<string, string>("ok"));
+        ).toBe(Result.Ok<string, string>("ok"));
 
         const x2 = Result.Err<string, string>("err");
         expect(
             x2.orElse<string>(() => Result.Ok<string, string>("err2"))
-        ).toStrictEqual(Result.Ok<string, string>("err2"));
+        ).toBe(Result.Ok<string, string>("err2"));
     });
 
     it("ok, err", () => {
         const x = Result.Ok<string, string>("ok");
-        expect(x.ok()).toStrictEqual(Option.Some("ok"));
-        expect(x.err()).toStrictEqual(Option.None<string>());
+        expect(x.ok()).toBe(Option.Some("ok"));
+        expect(x.err()).toBe(Option.None<string>());
 
         const x2 = Result.Err<string, string>("ok");
-        expect(x2.err()).toStrictEqual(Option.Some("ok"));
-        expect(x2.ok()).toStrictEqual(Option.None<string>());
+        expect(x2.err()).toBe(Option.Some("ok"));
+        expect(x2.ok()).toBe(Option.None<string>());
     });
 
     it("eq", () => {

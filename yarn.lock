@@ -37,7 +37,7 @@
   resolved "https://registry.yarnpkg.com/@as-pect/assembly/-/assembly-8.0.1.tgz#e85febe63cbe5f6a9885c8dadbde007c78895779"
   integrity sha512-MJryGqA06X6cT3Db0KdeCd4l6bur8i6WVfAtX+YmXU5bKRnbB0tUikX8CC5r0/LI/mVTcBOUxEcUbxnSTEQTCA==
 
-"@as-pect/cli@^8.0":
+"@as-pect/cli@^8.0.1":
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/@as-pect/cli/-/cli-8.0.1.tgz#34f8c5fb0c666288124bd5fd3a78795574166ed4"
   integrity sha512-3yp/xAFVt4HqDC/s7EiAQP+qbpWaiEmv6+NW8jHATu812zv7UegXvMPG+Bk684J5CxS+neK7k7t62VAgngtsEA==
@@ -533,12 +533,20 @@ asn1@~0.2.3:
   dependencies:
     safer-buffer "~2.1.0"
 
-assemblyscript@^0.25, assemblyscript@^0.25.0:
+assemblyscript@^0.25.0:
   version "0.25.2"
   resolved "https://registry.yarnpkg.com/assemblyscript/-/assemblyscript-0.25.2.tgz#49de9cac3d2657d6419f4214e33c3de6253daa83"
   integrity sha512-67TQOMvKo23htvSK6lhOzsoQjnplNKkdwgq925uBvQZLDbg9pHfAWhg/R8i8tqKrtk6GH8haOJbQY4oNSQqehA==
   dependencies:
     binaryen "110.0.0-nightly.20221105"
+    long "^5.2.0"
+
+assemblyscript@^0.27.0:
+  version "0.27.0"
+  resolved "https://registry.yarnpkg.com/assemblyscript/-/assemblyscript-0.27.0.tgz#d6c3f8c361184eb7eca0e15431b4e43929168e05"
+  integrity sha512-qD/pH71hHwI6dpR4LGMBASUH8E9jlLxIJXpuzC+2h2CzGS6JAq7nD2SHwG6uOVuzClYljo3gOr2JBzWTYpbq/Q==
+  dependencies:
+    binaryen "111.0.0-nightly.20230111"
     long "^5.2.0"
 
 assert-plus@1.0.0, assert-plus@^1.0.0:
@@ -599,6 +607,11 @@ binaryen@110.0.0-nightly.20221105:
   version "110.0.0-nightly.20221105"
   resolved "https://registry.yarnpkg.com/binaryen/-/binaryen-110.0.0-nightly.20221105.tgz#9e3c47e8ffa31521acd125013dca3ceea143d0bf"
   integrity sha512-OBESOc51q3SwgG8Uv8nMzGnSq7LJpSB/Fu8B3AjlZg6YtCEwRnlDWlnwNB6mdql+VdexfKmNcsrs4K7MYidmdQ==
+
+binaryen@111.0.0-nightly.20230111:
+  version "111.0.0-nightly.20230111"
+  resolved "https://registry.yarnpkg.com/binaryen/-/binaryen-111.0.0-nightly.20230111.tgz#251226c419ec2fb64037314f476d0e47965c3a84"
+  integrity sha512-CUEED/yMHoGeGnOZhQJW5+Luf5z/F58PHK5lw2feh5fbbqauodgnxyYkc2oxSjYwHHRCmFmaYyeQH4zlhRbebg==
 
 bluebird@^3.5.1, bluebird@^3.5.3, bluebird@^3.5.5, bluebird@^3.7.2:
   version "3.7.2"

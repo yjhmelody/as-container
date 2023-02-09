@@ -103,7 +103,7 @@ describe("ReferenceOption", () => {
         ).toBe("233233");
         expect(
             x.andThen<string>((s) => Option.None<string>())
-        ).toStrictEqual(Option.None<string>());
+        ).toBe(Option.None<string>());
     });
 
     it("or", () => {
@@ -116,18 +116,18 @@ describe("ReferenceOption", () => {
 
     it("and", () => {
         const x = Option.Some("some");
-        expect(x.and(Option.Some<string>("and"))).toStrictEqual(
+        expect(x.and(Option.Some<string>("and"))).toBe(
             Option.Some<string>("and")
         );
-        expect(x.and(Option.None<string>())).toStrictEqual(
+        expect(x.and(Option.None<string>())).toBe(
             Option.None<string>()
         );
 
         const x2 = Option.None<string>();
-        expect(x2.and(Option.Some("some"))).toStrictEqual(
+        expect(x2.and(Option.Some("some"))).toBe(
             Option.None<string>()
         );
-        expect(x2.and(Option.None<string>())).toStrictEqual(
+        expect(x2.and(Option.None<string>())).toBe(
             Option.None<string>()
         );
     });
