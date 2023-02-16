@@ -20,7 +20,7 @@ export class Result<O, E> implements Resultable<O, E> {
     protected _isOk: bool;
     // @ts-ignore
     @unsafe
-    private constructor(
+    protected constructor(
         isOk: bool,
         ok: O = instantiateZero<O>(),
         err: E = instantiateZero<E>()
