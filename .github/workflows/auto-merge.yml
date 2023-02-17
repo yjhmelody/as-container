@@ -1,8 +1,8 @@
 name: Auto-merge dependabot updates
 on:
   schedule:
-      # 16:00 and 18:00 in UTC+8
-    - cron: "0 8/10 * * FRI"
+      # 16:00,17:00,18:00 in UTC+8
+    - cron: "0 8,9,10 * * FRI"
 jobs:
   test:
     name: Auto-merge dependabot updates
