@@ -13,7 +13,7 @@ export type FlatMapErrFn<O, E, F> = MapFn<E, Result<O, F>>;
  * The Result version can only wrap reference type, but it will reduce reference overhead.
  */
 export class Result<O, E> implements Resultable<O, E> {
-    private constructor(
+    constructor(
         // _ok is null when _err is not null.
         protected _ok: O | null,
         // _err is null when _ok is not null.

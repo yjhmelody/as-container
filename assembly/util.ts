@@ -3,9 +3,8 @@
 /**
  * Instance a zero value of type T.
  *
- * Return zero value if it is primitive type.
+ * Return zero value if it is primitive type, e.g. "" for string, 0 for integer.
  * Return (unsafe) null if it is reference type.
- * Otherwise try to call constructor without arguments for it.
  * @returns zero value of T
  */
 @inline
@@ -17,8 +16,8 @@ export function instantiateZero<T>(): T {
         return 0;
     } else if (isBoolean<T>()) {
         return false;
-    } else if (isReference<T>()) {
-        return changetype<T>(0);
+    } else if (isString<T>()) {
+        return "";
     }
-    return instantiate<T>();
+    return changetype<T>(0);
 }
