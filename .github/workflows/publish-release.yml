@@ -24,7 +24,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Publish to NPM
-        run: npm publish
+        run: |
+          cd as-container
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
   github-release:
@@ -32,6 +34,7 @@ jobs:
     steps:
       - name: Create Release.txt
         run: |
+          cd as-container
           echo ${{ github.sha }} >> Release.txt
           npm run changelog >> Release.txt
       - name: Release
