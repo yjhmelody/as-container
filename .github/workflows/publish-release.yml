@@ -25,6 +25,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Setup nodejs
+        uses: actions/setup-node@v3
       - name: Publish to NPM
         run: |
           npm publish
@@ -36,6 +38,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Setup nodejs
+        uses: actions/setup-node@v3
       - name: Create Release.txt
         run: |
           echo ${{ github.sha }} >> Release.txt
