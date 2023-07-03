@@ -27,13 +27,13 @@
     "changelog": "conventional-changelog"
   },
   "devDependencies": {
-    "@as-pect/cli": "^8.0",
-    "@typescript-eslint/eslint-plugin": "^5.46",
-    "@typescript-eslint/parser": "^5.46",
-    "assemblyscript": "^0.25",
-    "eslint": "^8.29",
-    "typescript": "^5.0",
-    "conventional-changelog": "^4.0"
+    "@as-pect/cli": "8.1",
+    "@typescript-eslint/eslint-plugin": "5.60",
+    "@typescript-eslint/parser": "5.60",
+    "assemblyscript": "0.27",
+    "eslint": "8.33",
+    "typescript": "5.0",
+    "conventional-changelog": "4.0"
   },
   "files": [
     "assembly",
