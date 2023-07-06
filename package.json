@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@as-pect/cli": "8.1",
-    "@typescript-eslint/eslint-plugin": "5.60",
+    "@typescript-eslint/eslint-plugin": "5.61",
     "@typescript-eslint/parser": "5.60",
     "assemblyscript": "0.27",
     "eslint": "8.33",
