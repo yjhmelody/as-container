@@ -33,7 +33,7 @@
     "assemblyscript": "0.27",
     "eslint": "8.33",
     "typescript": "5.2",
-    "conventional-changelog": "4.0"
+    "conventional-changelog": "5.1"
   },
   "files": [
     "assembly",
