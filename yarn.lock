@@ -546,9 +546,9 @@ asn1@~0.2.3:
     safer-buffer "~2.1.0"
 
 assemblyscript@0.27, assemblyscript@^0.27.2:
-  version "0.27.11"
-  resolved "https://registry.yarnpkg.com/assemblyscript/-/assemblyscript-0.27.11.tgz#7f32f48744f8151a998cd519cf13d78b40c0fada"
-  integrity sha512-QGQp3R7bAttYrf2lqeUjwOUtIeVz5edYrZnJqYKtWAnrCyJCZdrcFGmPIqXwqamA6/sf3NZ6kS0o0G2VWv5UVw==
+  version "0.27.13"
+  resolved "https://registry.yarnpkg.com/assemblyscript/-/assemblyscript-0.27.13.tgz#b4a0372c22019d68da934f8744d0f1a031496e5a"
+  integrity sha512-e8rMwjsoskOwJ4l9qeDzmGsl96q6pHqlY2Omb6D4P7KvEWohSS83cJwExvzm/x8cwli2cTExG6NhVlEht+c+og==
   dependencies:
     binaryen "112.0.0-nightly.20230411"
     long "^5.2.1"
